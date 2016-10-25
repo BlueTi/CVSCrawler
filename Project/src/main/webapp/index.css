@@ -4,4 +4,11 @@
 .prod_list ul li{
 	position:relative;
 	float:left;
+	list-style:none;
 }
+
+.logo{
+	
+}
+
+
