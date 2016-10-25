@@ -37,7 +37,8 @@ class CU:
         cursor=con.cursor()
         cursor.execute(" drop table if exists CU")
         cursor.execute(" create table CU(prodName text,prodPrice int,prodTag text,prodImgSrc text)")   
-        sqlfile=codecs.open("eventSQL.sql","w","utf-8")
+        
+        sqlfile=codecs.open("CU.sql","w","utf-8")
         sqlfile.write("create table CU(prodName text,prodPrice text,prodTag text,prodImgSrc text); \n")
         
         c=0        

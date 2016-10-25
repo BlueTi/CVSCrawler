@@ -43,9 +43,15 @@ def createGS25_DB():
             prod_price=(str(p.find('span',{'class':'cost'})).split('>')[1].split('<')[0])
             prod_img=str(p.find('img')['src'])
             prod_tag=p.find('div',{'class':'flag_box'})
-            if(prod_tag.find('div',{'class':"ONE_TO_ONE"})!=None):
-                print(str(prod_tag))
-      
+            if(p.find('div',{'class',"ONE_TO_ONE"})!=None):
+                #print(str(prod_tag))
+                pass
+            if(p.find('div',{'class',"TWO_TO_ONE"})!=None):
+                #print(str(prod_tag))
+                pass
+            if(p.find('div',{'class',"GIFT"})!=None):
+                print(str(p.find('div',{'class':'dum_box'})))
+                pass      
     
     
     
@@ -53,6 +59,6 @@ def create717_DB():
     pass
 if __name__ == '__main__':
     pass
-    CU.CU()
-    #createGS25_DB()
+    #CU.CU()
+    createGS25_DB()
     
