@@ -1,14 +1,51 @@
-@CHARSET "EUC-KR";
+@CHARSET "UTF-8";
 
+#head{
+	position:absolute;
+}
+.logo{
+	float:left;
+	margin-top:5px;
+	margin-left:20px;
+}
+.prod_list{
+	margin-top:150px;
+}
 
 .prod_list ul li{
 	position:relative;
 	float:left;
 	list-style:none;
+	border:1px solid #fff;
+	margin-left:1px;	
+	width:236px;
+	heigh:200px;
+}
+.prod_list ul li:hover{
+	border:1px solid black;
+}
+.prod_list ul li p{
+	margin-left:8px;	
+}
+.prodName{
+	margin-left:1px;
+	font-size:15px;
+	font-family:"돋움";
+}
+.prodPrice{
+	margin-top:-5px;
+	margin-bottom:-5px;
+	font-weight:bold;
+	font-size:1.385em;
+}
+.prodTag span{
+	background-color: #a851ff;
+	color: white;
 }
 
-.logo{
-	
+#more{
+	float:top;
+	margin-top:30px;
+	align:bottom;
 }
-
 

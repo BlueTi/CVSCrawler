@@ -24,4 +24,8 @@ public class ProdRepository {
 		String sql="select * from CU";		
 		return temp.query(sql, (rs,no)->new prodEntity(rs.getString(1),Integer.parseInt(rs.getString(2).replaceAll(",", "")),rs.getString(3),rs.getString(4)));
 	}
+	public List<prodEntity> searchList(String word){
+		String sql="select * from CU where prodName=%"+word+"%";
+		return temp.query(sql, (rs,no)->new prodEntity(rs.getString(1),Integer.parseInt(rs.getString(2).replaceAll(",", "")),rs.getString(3),rs.getString(4)));
+	}
 }

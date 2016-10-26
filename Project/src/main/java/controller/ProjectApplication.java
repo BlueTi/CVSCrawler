@@ -26,7 +26,7 @@ public class ProjectApplication {
 	@Bean
 	public DataSource dataSource(){
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		EmbeddedDatabase db=builder.setType(EmbeddedDatabaseType.H2).addScript("/DB/eventSQL.sql").build();
+		EmbeddedDatabase db=builder.setType(EmbeddedDatabaseType.H2).addScript("/DB/CU.sql").build();
 		return db;
 	}
 	

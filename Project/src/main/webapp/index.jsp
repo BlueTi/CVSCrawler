@@ -7,32 +7,58 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script="jquery-3.1.1.min.js"/>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <link rel='stylesheet' type='text/css' href='index.css'/>
 <script type="text/javascript">
-	<%List<prodEntity> list=(List)request.getAttribute("list"); %>
-	var list=<%=list%>;
-	$(document).ready(function(){
-		function nextPage(){
-			$(".prod_list").(ul).append("TEST");
-		}		
+$(function(){
+	var c=5;
+	$("#moreBtn").click(function(){
+		$.ajax({
+		    url : "/ajax/Morelist",
+		    data: {"count":c},
+		    datatype:"json",
+		    type : "post",
+		    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		    success: function(data) {
+		       	c+=12;
+		        $.each($.parseJSON(data),function(index,item){
+		        	$(".prod_list ul").append("<li><div><img src="+item.prodImg+" style='width:180px; height:180px;'><p class='prodName'>"
+		        	+item.prodName+"</p><p class='prodPrice'>"+item.prodPrice+"</p><p class='prodTag'><span>"+item.prodTag+"</span><p></div></li>");
+		       	});
+		        //$("#more").insertAfter($('.prod_list ul li').last());
+		    },
+		    error:function(request,status,error){
+		        alert("code:"+request.status+"\n"+"error:"+error);
+		    }		 
+		}); 
 	});
+})
+
 </script>
-<title>편의점 정보 찾기</title>
+<title>일단 만들어 그리고 부셔</title>
 </head>
+
 <body>
-	<form class='search' method='post'>
+	<!-- 이름으로 검색 -->
+	<form class='search' method='post' action="">
 		<input name="word" type='text'/>
-		<input value="검색" type='submit'> 
+		<input value="검색" type='button' onclick="/ajax/search"> 
 	</form>
+	
 	<div id="head">
 		<div class="logo"><img src="https://cu.bgfretail.com/images/common/logo.gif"/></div>
 		<div class="logo"><img src="http://gs25.gsretail.com/_ui/desktop/common/images/gscvs/common/logo.gif"></div>
+		<!--가격범위 range, 태그 checkbox  -->
+	<form>
+		<input type="checkbox"/><label>1+1</label> 
+		<input type="checkbox"/><label>2+1</label>		
+	</form>
 	</div>
 	
 	<div class='prod_list'>
 		<ul>
 		<%
+		List<prodEntity> list=(List)request.getAttribute("list"); 
 		int c=5;		
 		int i=0;
 		for(;i<c;i++){
@@ -40,13 +66,14 @@
 			<li>
 			<div>
 			<img src="<%=list.get(i).getProdImg() %>" style="width:180px; height:180px;">
-			<p><%=list.get(i).getProdName() %></p>
-			<p><%=list.get(i).getProdPrice()%></p>
+			<p class='prodName'><%=list.get(i).getProdName() %></p>
+			<p class='prodPrice'><%=list.get(i).getProdPrice()%></p>
+			<p class='prodTag'><span><%=list.get(i).getProdTag() %></span></p>
 			</div>
 			</li>
-		<%}%>
-		</ul>
+		<%}%>		
+		</ul>		
 	</div>
-	<div><a href="javascript:nextPage();">더보기</a></div>
+	<div id="more"><button id="moreBtn">더보기</button></div>
 </body>
 </html>
