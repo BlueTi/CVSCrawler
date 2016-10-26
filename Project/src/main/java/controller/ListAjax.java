@@ -47,8 +47,21 @@ public class ListAjax {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/ajax/search",method=RequestMethod.POST)
-	public void searchList(){
-		
+	@RequestMapping(value="/ajax/searchWord",method=RequestMethod.POST)
+	public void searchWordList(HttpServletResponse resp,@RequestParam(value="word")String word)throws Exception{
+		resp.setCharacterEncoding("utf-8");
+		List<prodEntity>list=service.getSearchList(word);
+		JSONArray jar = new JSONArray();
+		for(prodEntity p :list){
+			JSONObject ob = new JSONObject();			
+	        ob.put("prodImg",p.getProdImg());
+			ob.put("prodName",p.getProdName());
+			ob.put("prodPrice",p.getProdPrice());
+			ob.put("prodTag",p.getProdTag());	
+			jar.add(ob);
+		}
+		PrintWriter out = resp.getWriter();
+        out.print(jar);
 	}
+	
 }

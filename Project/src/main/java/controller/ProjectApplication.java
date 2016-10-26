@@ -38,6 +38,7 @@ public class ProjectApplication {
 		model.addAttribute("list",list);
 		return "index";
 	}
+	
 	@Autowired
 	ListService listService;
 	

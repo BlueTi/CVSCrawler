@@ -15,4 +15,7 @@ public class ListService {
 	public List getList(){
 		return repository.getList();
 	}
+	public List getSearchList(String word){
+		return repository.searchList(word);
+	}
 }
