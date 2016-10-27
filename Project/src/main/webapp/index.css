@@ -16,10 +16,10 @@
 	position:relative;
 	float:left;
 	list-style:none;
-	border:1px solid #fff;
-	margin-left:1px;	
+	border:1px solid #d0d0d0;
+	border-bottom:1px solid white;
+	border-top:1px solid white;	
 	width:236px;
-	heigh:200px;
 }
 .prod_list ul li:hover{
 	border:1px solid black;
@@ -38,14 +38,22 @@
 	font-weight:bold;
 	font-size:1.385em;
 }
+.prod_list .CVS{
+	position:relative;
+	margin-top:30px;
+	margin-left:-30px;
+	margin-right:15px;
+	float:right;
+	width:40px;
+	heigth:40px;	
+}
 .prodTag span{
 	background-color: #a851ff;
 	color: white;
 }
 
-#more{
-	float:top;
-	margin-top:30px;
-	align:bottom;
+#more button{
+	width:236px;
+	height:305px;
 }
 

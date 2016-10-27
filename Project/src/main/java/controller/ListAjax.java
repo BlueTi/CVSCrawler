@@ -31,7 +31,7 @@ public class ListAjax {
 		resp.setCharacterEncoding("utf-8");
 		List<prodEntity> list=service.getList();		
 		JSONArray jar = new JSONArray();
-		int max=count+12;
+		int max=count+20;
 		if(max>list.size()) max=list.size();			
 		for(int i=count;i<max;i++){
 			prodEntity p = list.get(i);
@@ -39,7 +39,9 @@ public class ListAjax {
 	        ob.put("prodImg",p.getProdImg());
 			ob.put("prodName",p.getProdName());
 			ob.put("prodPrice",p.getProdPrice());
-			ob.put("prodTag",p.getProdTag());	
+			ob.put("prodTag",p.getProdTag());
+			if(p.getCVS().equals("CU"))
+				ob.put("CVS", "image/CULogo.jpg");
 			jar.add(ob);
 		}        
         PrintWriter out = resp.getWriter();
@@ -58,6 +60,8 @@ public class ListAjax {
 			ob.put("prodName",p.getProdName());
 			ob.put("prodPrice",p.getProdPrice());
 			ob.put("prodTag",p.getProdTag());	
+			if(p.getCVS().equals("CU"))
+				ob.put("CVS", "image/CULogo.jpg");
 			jar.add(ob);
 		}
 		PrintWriter out = resp.getWriter();

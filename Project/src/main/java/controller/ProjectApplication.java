@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -35,7 +37,18 @@ public class ProjectApplication {
 	@RequestMapping("/")
 	public String Home(Model model){
 		List<prodEntity> list= listService.getList();
-		model.addAttribute("list",list);
+		JSONArray ar= new JSONArray();
+		for(prodEntity p :list){
+			JSONObject ob = new JSONObject();			
+	        ob.put("prodImg",p.getProdImg());
+			ob.put("prodName",p.getProdName());
+			ob.put("prodPrice",p.getProdPrice());
+			ob.put("prodTag",p.getProdTag());	
+			if(p.getCVS().equals("CU"))
+				ob.put("CVS", "image/CULogo.jpg");
+			ar.add(ob);
+		}
+		model.addAttribute("list",ar);
 		return "index";
 	}
 	
