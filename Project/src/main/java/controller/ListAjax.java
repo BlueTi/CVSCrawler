@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import entity.CUprodEntity;
+import entity.prodEntity;
 
 
 @Controller
@@ -29,12 +29,12 @@ public class ListAjax {
 	@RequestMapping(value="/ajax/Morelist", method= RequestMethod.POST)
 	public void loadList(HttpServletResponse resp,@RequestParam(value="count") int count) throws Exception{
 		resp.setCharacterEncoding("utf-8");
-		List<CUprodEntity> list=service.getList();		
+		List<prodEntity> list=service.getList();		
 		JSONArray jar = new JSONArray();
 		int max=count+20;
 		if(max>list.size()) max=list.size();			
 		for(int i=count;i<max;i++){
-			CUprodEntity p = list.get(i);
+			prodEntity p = list.get(i);
 			JSONObject ob = new JSONObject();			
 	        ob.put("prodImg",p.getProdImg());
 			ob.put("prodName",p.getProdName());
@@ -54,9 +54,9 @@ public class ListAjax {
 	@RequestMapping(value="/ajax/searchWord",method=RequestMethod.POST)
 	public void searchWordList(HttpServletResponse resp,@RequestParam(value="word")String word)throws Exception{
 		resp.setCharacterEncoding("utf-8");
-		List<CUprodEntity>list=service.getSearchList(word);
+		List<prodEntity>list=service.getSearchList(word);
 		JSONArray jar = new JSONArray();
-		for(CUprodEntity p :list){
+		for(prodEntity p :list){
 			JSONObject ob = new JSONObject();			
 	        ob.put("prodImg",p.getProdImg());
 			ob.put("prodName",p.getProdName());

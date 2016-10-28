@@ -19,7 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import entity.CUprodEntity;
+import entity.prodEntity;
 
 @SpringBootApplication
 @Controller
@@ -31,7 +31,7 @@ public class ProjectApplication {
 		builder.setType(EmbeddedDatabaseType.H2);
 		builder.addScript("/DB/CU.sql");
 		builder.addScript("/DB/GS.sql");
-		builder.addScript("/DB/GS_DUM.sql");
+		//builder.addScript("/DB/GS_DUM.sql");
 		EmbeddedDatabase db=builder.build();
 		return db;
 	}
@@ -40,9 +40,9 @@ public class ProjectApplication {
 	
 	@RequestMapping("/")
 	public String Home(Model model){
-		List<CUprodEntity> list= listService.getList();
+		List<prodEntity> list= listService.getList();
 		JSONArray ar= new JSONArray();
-		for(CUprodEntity p :list){
+		for(prodEntity p :list){
 			JSONObject ob = new JSONObject();			
 	        ob.put("prodImg",p.getProdImg());
 			ob.put("prodName",p.getProdName());
@@ -50,6 +50,8 @@ public class ProjectApplication {
 			ob.put("prodTag",p.getProdTag());	
 			if(p.getCVS().equals("CU"))
 				ob.put("CVS", "image/CULogo.jpg");
+			else if(p.getCVS().equals("GS"))
+				ob.put("CVS", "image/GSLogo.gif");
 			ar.add(ob);
 		}
 		model.addAttribute("list",ar);

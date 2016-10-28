@@ -22,12 +22,14 @@
 	
 	<div id="head">
 		<div class="logo"><a href="#"><img src="https://cu.bgfretail.com/images/common/logo.gif"/></a></div>
-		<div class="logo"><a href="#"><img src="image/GSlogo.gif"></a></div>
+		<div class="logo"><a href="#"><img src="image/GSLogo.gif"></a></div>
 		<!--가격범위, 태그 checkbox  -->
 	<form id='searchTag'>
-		<input name="one" type="checkbox"/><label>1+1</label> 
-		<input name="two" type="checkbox"/><label>2+1</label>
-		<input name="dum" type="checkbox"/><label>덤증정</label>				
+		<input name="one" type="checkbox" checked="checked"/><label>1+1</label> 
+		<input name="two" type="checkbox" checked="checked"/><label>2+1</label>
+		<input name="dum" type="checkbox" checked="checked"/><label>덤증정</label>			
+		<input name="CU" type="checkbox" checked="checked"/><label>CU</label>
+		<input name="GS" type="checkbox" checked="checked"/><label>GS</label>	
 	</form>
 	
 	
@@ -35,7 +37,7 @@
 	
 	<div class='prod_list'>
 		<ul>
-			<c:forEach var="item" items="${list}"  begin="0" varStatus="status" end="12" >
+			<c:forEach var="item" items="${list}"  begin="0" varStatus="status" end="11" >
 				<li>
 				<div>
 				<span><img src="${item.prodImg}" style="width:180px; height:180px;"><img class='CVS' src=${item.CVS}></span>

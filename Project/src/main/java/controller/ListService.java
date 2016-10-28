@@ -13,7 +13,7 @@ public class ListService {
 	ProdRepository repository;
 	
 	public List getList(){
-		return repository.getCUList();
+		return repository.getList("CU");
 	}
 	public List getSearchList(String word){
 		return repository.searchList(word);
