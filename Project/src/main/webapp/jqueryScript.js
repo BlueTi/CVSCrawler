@@ -46,10 +46,10 @@ $(function(){
 	
 	var index=0;
 	
-	function printList(index){
+	function printList(){
 		var max=index+12; 
 		if(max>=prodlist.length)max=prodlist.length;
-		for(var i=index;i<max;i++){
+		for(var i=index;i<max;i++,index++){
 			var tag="<li><div><span><img src="+prodlist[i].prodImg+" style='width:180px; height:180px;'><img src="+prodlist[i].CVS+" class='CVS'></span><p class='prodName'>"
         	+prodlist[i].prodName+"</p><p class='prodPrice'>"+prodlist[i].prodPrice+"</p><p class='prodTag "+prodlist[i].prodTag+"'><span>";
 			if(prodlist[i].prodTag=='DUM') tag+="덤증정</span></p></div></li>"; else tag+=prodlist[i].prodTag+"</span></p></div></li>";
@@ -67,9 +67,8 @@ $(function(){
 	
 	
 	$(document).on("click","#mBtn",function(){
-		printList(index+12);
+		printList();
 		$("#more").appendTo($('.prod_list ul'));
-		index+=12;
 	});
 	
 	
@@ -84,7 +83,7 @@ $(function(){
 	    	$("#searchTag input[name='CU']").attr('checked',true);
 	    	$("#searchTag input[name='GS']").attr('checked',true);		    	
 	    	prodlist=$.parseJSON(data);
-	    	printList(index);	   
+	    	printList();	   
 		});
 	});
 	
