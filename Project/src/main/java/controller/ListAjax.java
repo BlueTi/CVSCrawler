@@ -36,14 +36,13 @@ public class ListAjax {
 		for(int i=count;i<max;i++){
 			prodEntity p = list.get(i);
 			JSONObject ob = new JSONObject();			
-	        ob.put("prodImg",p.getProdImg());
+			ob.put("prodImg",p.getProdImg());
 			ob.put("prodName",p.getProdName());
 			ob.put("prodPrice",p.getProdPrice());
 			ob.put("prodTag",p.getProdTag());
-			if(p.getCVS().equals("CU"))
-				ob.put("CVS", "image/CULogo.jpg");
-			else if(p.getCVS().equals("GS"))
-				ob.put("CVS", "image/GSLogo.gif");
+			
+			if(p.getCVS().equals("CU"))	ob.put("CVS", "image/CULogo.jpg");
+			else if(p.getCVS().equals("GS")) ob.put("CVS", "image/GSLogo.gif");
 			jar.add(ob);
 		}        
         PrintWriter out = resp.getWriter();
@@ -58,14 +57,14 @@ public class ListAjax {
 		JSONArray jar = new JSONArray();
 		for(prodEntity p :list){
 			JSONObject ob = new JSONObject();			
-	        ob.put("prodImg",p.getProdImg());
+			ob.put("prodImg",p.getProdImg());
 			ob.put("prodName",p.getProdName());
 			ob.put("prodPrice",p.getProdPrice());
-			ob.put("prodTag",p.getProdTag());	
-			if(p.getCVS().equals("CU"))
-				ob.put("CVS", "image/CULogo.jpg");
-			else if(p.getCVS().equals("GS"))
-				ob.put("CVS", "image/GSLogo.gif");
+			ob.put("prodTag",p.getProdTag());
+			
+			if(p.getCVS().equals("CU"))	ob.put("CVS", "image/CULogo.jpg");
+			else if(p.getCVS().equals("GS")) ob.put("CVS", "image/GSLogo.gif");
+			
 			jar.add(ob);
 		}
 		PrintWriter out = resp.getWriter();

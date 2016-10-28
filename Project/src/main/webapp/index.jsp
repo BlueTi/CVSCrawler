@@ -43,7 +43,11 @@
 				<span><img src="${item.prodImg}" style="width:180px; height:180px;"><img class='CVS' src=${item.CVS}></span>
 				<p class='prodName'>${item.prodName}</p>
 				<p class='prodPrice'>${item.prodPrice}</p>				
-				<p class='prodTag'><span>${item.prodTag}</span></p>
+				<p class='prodTag ${item.prodTag}'><span>
+				<c:choose>
+					<c:when test="${item.prodTag eq 'DUM'}">덤증정	</c:when>
+					<c:otherwise>${item.prodTag}</c:otherwise>					
+				</c:choose></span></p>
 				</div>
 				</li>
 			</c:forEach>			

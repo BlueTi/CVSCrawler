@@ -46,12 +46,11 @@ public class ProjectApplication {
 			JSONObject ob = new JSONObject();			
 	        ob.put("prodImg",p.getProdImg());
 			ob.put("prodName",p.getProdName());
-			ob.put("prodPrice",p.getProdPrice());
-			ob.put("prodTag",p.getProdTag());	
-			if(p.getCVS().equals("CU"))
-				ob.put("CVS", "image/CULogo.jpg");
-			else if(p.getCVS().equals("GS"))
-				ob.put("CVS", "image/GSLogo.gif");
+			ob.put("prodPrice",p.getProdPrice());			
+			ob.put("prodTag",p.getProdTag());
+			
+			if(p.getCVS().equals("CU"))	ob.put("CVS", "image/CULogo.jpg");
+			else if(p.getCVS().equals("GS")) ob.put("CVS", "image/GSLogo.gif");
 			ar.add(ob);
 		}
 		model.addAttribute("list",ar);
