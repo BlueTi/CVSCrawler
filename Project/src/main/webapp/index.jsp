@@ -26,7 +26,8 @@
 		<!--가격범위, 태그 checkbox  -->
 	<form id='searchTag'>
 		<input name="one" type="checkbox"/><label>1+1</label> 
-		<input name="two" type="checkbox"/><label>2+1</label>		
+		<input name="two" type="checkbox"/><label>2+1</label>
+		<input name="dum" type="checkbox"/><label>덤증정</label>				
 	</form>
 	
 	

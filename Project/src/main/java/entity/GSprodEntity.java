@@ -1,20 +1,28 @@
 package entity;
 
-public class prodEntity {
-	private String prodName,prodTag,prodImg,CVS;
+public class GSprodEntity {
+	private String prodName,prodTag,prodImg,CVS,dum;
 	private int prodPrice;
 	
-	public prodEntity(){}	
+	public GSprodEntity(){}	
 	
-	public prodEntity(String prodName, int prodPrice, String prodTag, String prodImg,String CVS) {
+	public GSprodEntity(String prodName, int prodPrice, String prodTag, String prodImg,String dum) {
 		super();
 		this.prodName = prodName;
 		this.prodTag = prodTag;
 		this.prodImg = prodImg;
 		this.prodPrice = prodPrice;
-		this.CVS=CVS;
+		this.dum=dum;
 	}
 
+
+	public String getDum() {
+		return dum;
+	}
+
+	public void setDum(String dum) {
+		this.dum = dum;
+	}
 
 	public String getCVS() {
 		return CVS;

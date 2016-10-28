@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import entity.prodEntity;
+import entity.CUprodEntity;
 
 
 @Controller
@@ -29,12 +29,12 @@ public class ListAjax {
 	@RequestMapping(value="/ajax/Morelist", method= RequestMethod.POST)
 	public void loadList(HttpServletResponse resp,@RequestParam(value="count") int count) throws Exception{
 		resp.setCharacterEncoding("utf-8");
-		List<prodEntity> list=service.getList();		
+		List<CUprodEntity> list=service.getList();		
 		JSONArray jar = new JSONArray();
 		int max=count+20;
 		if(max>list.size()) max=list.size();			
 		for(int i=count;i<max;i++){
-			prodEntity p = list.get(i);
+			CUprodEntity p = list.get(i);
 			JSONObject ob = new JSONObject();			
 	        ob.put("prodImg",p.getProdImg());
 			ob.put("prodName",p.getProdName());
@@ -42,6 +42,8 @@ public class ListAjax {
 			ob.put("prodTag",p.getProdTag());
 			if(p.getCVS().equals("CU"))
 				ob.put("CVS", "image/CULogo.jpg");
+			else if(p.getCVS().equals("GS"))
+				ob.put("CVS", "image/GSLogo.gif");
 			jar.add(ob);
 		}        
         PrintWriter out = resp.getWriter();
@@ -52,9 +54,9 @@ public class ListAjax {
 	@RequestMapping(value="/ajax/searchWord",method=RequestMethod.POST)
 	public void searchWordList(HttpServletResponse resp,@RequestParam(value="word")String word)throws Exception{
 		resp.setCharacterEncoding("utf-8");
-		List<prodEntity>list=service.getSearchList(word);
+		List<CUprodEntity>list=service.getSearchList(word);
 		JSONArray jar = new JSONArray();
-		for(prodEntity p :list){
+		for(CUprodEntity p :list){
 			JSONObject ob = new JSONObject();			
 	        ob.put("prodImg",p.getProdImg());
 			ob.put("prodName",p.getProdName());
@@ -62,6 +64,8 @@ public class ListAjax {
 			ob.put("prodTag",p.getProdTag());	
 			if(p.getCVS().equals("CU"))
 				ob.put("CVS", "image/CULogo.jpg");
+			else if(p.getCVS().equals("GS"))
+				ob.put("CVS", "image/GSLogo.gif");
 			jar.add(ob);
 		}
 		PrintWriter out = resp.getWriter();
