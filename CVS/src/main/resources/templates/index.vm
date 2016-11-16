@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel='stylesheet' type='text/css' href='css/index.css'/> 
+</head>
+<body>
+		<!-- 이름으로 검색 -->
+	<form id='searchWord' method='post' onSubmit="return false;">
+		<input name="word" type='text'/>
+		<input id='searchBtn' value="검색" type='button'>
+	</form>
+	
+	<div id="head">
+		<div class="logo"><a href="#"><img src="https://cu.bgfretail.com/images/common/logo.gif"/></a></div>
+		<div class="logo"><a href="#"><img src="image/GSLogo.gif"></a></div>
+		<!--가격범위, 태그 checkbox  -->
+	<form id='searchTag'>
+		<input name="one" type="checkbox" checked="checked"/><label>1+1</label> 
+		<input name="two" type="checkbox" checked="checked"/><label>2+1</label>
+		<input name="dum" type="checkbox" checked="checked"/><label>덤증정</label>			
+		<input name="CU" type="checkbox" checked="checked"/><label>CU</label>
+		<input name="GS" type="checkbox" checked="checked"/><label>GS</label>	
+	</form>
+	
+	
+	</div>
+	
+	<div class='prod_list'>
+		<ul>
+		#foreach($item in $list)
+			<li>
+				<div>
+				<span><img src="${item.prodImg}" style="width:180px; height:180px;"><img class='CVS' src=${item.CVS}></span>
+				<p class='prodName'>${item.prodName}</p>
+				<p class='prodPrice'>${item.prodPrice}</p>				
+				<p class='prodTag ${item.prodTag}'><span>
+				</div>
+				</li>
+		#end
+		</ul>
+	</div>
+</body>
+</html>
