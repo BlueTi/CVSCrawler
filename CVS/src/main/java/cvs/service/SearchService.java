@@ -1,6 +1,8 @@
 package cvs.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -16,11 +18,20 @@ import cvs.repository.repository;
 @AutoConfigurationPackage
 public class SearchService {
 	@Autowired
-	repository repo;
+	repository repository;
 	
+	@SuppressWarnings("unchecked")
 	public JSONArray searchWord(String word){
 		List<prodEntity> list = new ArrayList<prodEntity>();
-		list=repo.getWordList(word);
+		list=repository.getWordList(word);
+		
+
+		Collections.sort(list,new Comparator<prodEntity>(){
+			public int compare(prodEntity p1,prodEntity p2){
+				return p1.getProdName().compareTo(p2.getProdName());
+			}
+		});
+		
 		JSONArray jar = new JSONArray();
 		for(prodEntity p :list){
 			JSONObject ob = new JSONObject();			

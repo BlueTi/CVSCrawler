@@ -1,27 +1,7 @@
 $(function(){
 	var c=12;
 	var prodlist;
-	$("#moreBtn").click(function(){
-		$.ajax({
-		    url : "/ajax/Morelist",
-		    data: {"count":c},
-		    datatype:"json",
-		    type : "post",
-		    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-		    success: function(data) {
-		       	c+=12;
-		       	$.each($.parseJSON(data),function(index,item){
-		        	$(".prod_list ul").append("<li><div><span><img src="+item.prodImg+" style='width:180px; height:180px;'><img src="+item.CVS+" class='CVS'></span><p class='prodName'>"
-		        	+item.prodName+"</p><p class='prodPrice'>"+item.prodPrice+"</p><p class='prodTag "+item.prodTag+"'><span>"+item.prodTag+"</span></p></div></li>");
-		       	});
-		       	if($.parseJSON(data).length<20)$('#more').remove();
-		       	$("#more").appendTo($('.prod_list ul'));
-		    },
-		    error:function(request,status,error){
-		        alert("code:"+request.status+"\n"+"error:"+error);
-		    }		 
-		}); 
-	});
+	var index=0;	
 	
 	function searchWord(){
 		index=0;
@@ -36,6 +16,7 @@ $(function(){
 		    	if(data.length<3) {alert("결과가 없습니다"); return }
 		    	$(".prod_list ul li").hide();
 		    	$("#more").remove();
+		    	$("#searchTag").css("visibility","visible");
 		    },
 		    error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"error:"+error);
@@ -44,14 +25,12 @@ $(function(){
 	};
 	
 	
-	var index=0;
-	
 	function printList(){
 		var max=index+12; 
 		if(max>=prodlist.length)max=prodlist.length;
 		for(var i=index;i<max;i++,index++){
 			var tag="<li><div><span><img src="+prodlist[i].prodImg+" style='width:180px; height:180px;'><img src="+prodlist[i].CVS+" class='CVS'></span><p class='prodName'>"
-        	+prodlist[i].prodName+"</p><p class='prodPrice'>"+prodlist[i].prodPrice+"</p><p class='prodTag "+prodlist[i].prodTag+"'><span>";
+        	+prodlist[i].prodName+"</p><p class='prodPrice'>"+prodlist[i].prodPrice+"원</p><p class='prodTag "+prodlist[i].prodTag+"'><span>";
 			if(prodlist[i].prodTag=='DUM') tag+="덤증정</span></p></div></li>"; else tag+=prodlist[i].prodTag+"</span></p></div></li>";
 			$(".prod_list ul").append(tag);
 		}
@@ -69,11 +48,7 @@ $(function(){
 	$(document).on("click","#mBtn",function(){
 		printList();
 		$("#more").appendTo($('.prod_list ul'));
-	});
-	
-	
-	
-	
+	});	
 	
 	$('#searchBtn').click(function(){
 		searchWord().then(function(data){
@@ -85,11 +60,9 @@ $(function(){
 	    	prodlist=$.parseJSON(data);
 	    	printList();	   
 		});
-	});
+	});	
 	
-	
-	
-	
+	/*태그폼 분류 */
 	$("#searchTag").change(function(){
 		var one=$("#searchTag input[name='one']").is(':checked');		
 		var two=$("#searchTag input[name='two']").is(':checked');
