@@ -32,5 +32,16 @@ public class repository {
 				rs.getString(3),rs.getString(4),"GS",rs.getString(5))));		
 		return list;
 	}
-
+	
+	public List<prodEntity> getWordList(String word){
+		List<prodEntity>list = new ArrayList<prodEntity>();
+		String sql="select * from CU where prodName like '%"+word+"%'";
+		list.addAll(temp.query(sql, (rs,no)->new prodEntity(rs.getString(1),Integer.parseInt(rs.getString(2).replaceAll(",", "")),
+				rs.getString(3),rs.getString(4),"CU",rs.getString(5))));
+		sql="select * from GS where prodName like '%"+word+"%'";
+		list.addAll(temp.query(sql, (rs,no)->new prodEntity(rs.getString(1),Integer.parseInt(rs.getString(2).replaceAll(",", "")),
+				rs.getString(3),rs.getString(4),"GS",rs.getString(5))));		
+		return list;
+	}
+	
 }
