@@ -12,6 +12,9 @@ $(function(){
 		    datatype:"json",
 		    type : "post",
 		    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		    beforeSend:function(){
+		    	$('.wrap-loading').removeClass('display-none');
+		    },
 		    success: function(data) {
 		    	if(data.length<3) {alert("결과가 없습니다"); return }
 		    	$(".prod_list ul li").hide();
@@ -22,12 +25,25 @@ $(function(){
 		    			left:'-25%'
 		    		},200,function(){		    			
 		    		});
-		    	}
+		    	};
+
+		    	$("#searchTag input[name='one']").attr('checked',true);
+		    	$("#searchTag input[name='two']").attr('checked',true);
+		    	$("#searchTag input[name='dum']").attr('checked',true);
+		    	$("#searchTag input[name='CU']").attr('checked',true);
+		    	$("#searchTag input[name='GS']").attr('checked',true);	
 		    	
+		    	prodlist=$.parseJSON(data);
+			    $('.prod_list ul').hide();
+			    printList();
+			    $('.prod_list ul').show('slow');	  
 		    },
 		    error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"error:"+error);
-		    }		 
+		    },
+		    complete:function(){
+		    	$('.wrap-loading').addClass('display-none');
+		    }
 		});
 	};
 	
@@ -48,7 +64,7 @@ $(function(){
 		else
 			$(".prod_list ul").append("<li id='more'><button id='mBtn'>더보기</button></li>");	
 
-		if(prodlist.length-index<12)$('#more').remove();
+		if(prodlist.length-index<12) $('#more').remove();
 	};	
 	
 	
@@ -58,16 +74,8 @@ $(function(){
 	});	
 	
 	$('#searchBtn').click(function(){
-		searchWord().then(function(data){
-	    	$("#searchTag input[name='one']").attr('checked',true);
-	    	$("#searchTag input[name='two']").attr('checked',true);
-	    	$("#searchTag input[name='dum']").attr('checked',true);
-	    	$("#searchTag input[name='CU']").attr('checked',true);
-	    	$("#searchTag input[name='GS']").attr('checked',true);		    	
-	    	prodlist=$.parseJSON(data);
-		    $('.prod_list ul').hide();
-		    printList();
-		    $('.prod_list ul').show('slow');	    	
+		searchWord().then(function(data){	    	
+	    	  	
 		});
 	});	
 	
