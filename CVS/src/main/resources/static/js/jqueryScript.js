@@ -15,8 +15,15 @@ $(function(){
 		    success: function(data) {
 		    	if(data.length<3) {alert("결과가 없습니다"); return }
 		    	$(".prod_list ul li").hide();
-		    	$("#more").remove();
 		    	$("#searchTag").css("visibility","visible");
+		    	if($('#head').css('margin-top')!=null){		    		
+		    		$('#head').animate({
+		    			top:'1%',
+		    			left:'-25%'
+		    		},200,function(){		    			
+		    		});
+		    	}
+		    	
 		    },
 		    error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"error:"+error);
@@ -58,7 +65,9 @@ $(function(){
 	    	$("#searchTag input[name='CU']").attr('checked',true);
 	    	$("#searchTag input[name='GS']").attr('checked',true);		    	
 	    	prodlist=$.parseJSON(data);
-	    	printList();	   
+		    $('.prod_list ul').hide();
+		    printList();
+		    $('.prod_list ul').show('slow');	    	
 		});
 	});	
 	
