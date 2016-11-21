@@ -5,7 +5,7 @@ Created on 2016. 10. 12.
 @author: 305
 '''
 
-from resource import CU , GS
+from resource import CU , GS, Compare
 
 
 def create717_DB():
@@ -13,5 +13,6 @@ def create717_DB():
 if __name__ == '__main__':
     pass
     #CU.CU()
-    GS.GS()
+    #GS.GS()
+    Compare.CPEmart()
     

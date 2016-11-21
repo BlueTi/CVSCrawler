@@ -40,7 +40,7 @@ class GS(threading.Thread):
     
     
         sqlFile=codecs.open("GS.sql","w","utf-8")        
-        sqlFile.write("create table GS(prodName text,prodPrice text,prodTag text,prodImgSrc text,dum text); \n")
+        sqlFile.write("create table GS(prodName text,prodPrice text,prodTag text,prodImgSrc text,dum text,cvs text); \n")
         dumlist=[]
         
         for d in prodList:
@@ -61,7 +61,7 @@ class GS(threading.Thread):
                     dum_price=str(dum.find('p',{'class':'price'})).split('>')[2].split('<')[0]
                     dum_img=str(dum.find('img')['src'])                    
                     dumlist.append([dum_name,dum_price,dum_img])                            
-                sqlFile.write("insert into GS values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+"'); \n")
+                sqlFile.write("insert into GS values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+"',''); \n")
         sqlFile.close();
         
         dumSqlFile=codecs.open("GS_DUM.sql","w","utf-8")
