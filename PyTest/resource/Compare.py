@@ -8,13 +8,18 @@ import sqlite3
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from threading import Thread
 
 
-class CPEmart():
+class CPEmart(Thread):
     def __init__(self):
+        super(CPEmart, self).__init__()
+        
+    def run(self):
         CPEmart.compareEmart(self)
     
     def compareEmart(self):
+        
         conn=sqlite3.connect("eventDB.db")
         cur=conn.cursor()
         cur.execute("select prodName from CU")        
@@ -36,7 +41,7 @@ class CPEmart():
                 img=prod.find('div',{'class':'thm'}).find('img')['src']
                 prodname=prod.find('div',{'class':'title'}).find('a',{'data-unit':'list'})['title']
                 price=prod.find('div',{'class':'price'}).find('strong').get_text()
-                print(str(prodname)+"     "+str(price))
+                print(str(prodname)+"     "+str(price).replace(',', ''))
                 
             
         driver.quit()

@@ -5,15 +5,18 @@ Created on 2016. 10. 20.
 '''
 import codecs
 import sqlite3
-import threading
+from threading import Thread
 from time import sleep
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
 
-class CU(threading.Thread):
+class CU(Thread):
     def __init__(self):
+        super(CU, self).__init__()
+    
+    def run(self):
         CU.createCU_DB(self)
        
     def createCU_DB(self):

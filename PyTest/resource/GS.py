@@ -4,16 +4,18 @@ Created on 2016. 10. 28.
 @author: 305
 '''
 import codecs
-import threading
+from threading import Thread
 from time import sleep
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from _ast import List
 
 
-class GS(threading.Thread):
+class GS(Thread):
     def __init__(self):
+        super(GS, self).__init__()
+        
+    def run(self):
         GS.createGS25_DB(self)
         
     def createGS25_DB(self):
