@@ -1,5 +1,7 @@
 package cvs.controll;
 
+import java.io.Writer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Controller;
@@ -21,10 +23,4 @@ public class Home {
 		return "index";
 	}
 	
-	@RequestMapping("/test")
-	@ResponseBody
-	public Integer test(Model model){
-		
-		return 1;
-	}
 }
