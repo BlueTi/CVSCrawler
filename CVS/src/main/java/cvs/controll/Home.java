@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cvs.service.SearchService; 
 
@@ -18,5 +19,12 @@ public class Home {
 	@RequestMapping("/")
 	public String Home(Model model){
 		return "index";
+	}
+	
+	@RequestMapping("/test")
+	@ResponseBody
+	public Integer test(Model model){
+		
+		return 1;
 	}
 }

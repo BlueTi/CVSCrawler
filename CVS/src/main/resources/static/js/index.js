@@ -13,7 +13,7 @@ $(function(){
 		    type : "post",
 		    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 		    beforeSend:function(){
-		    	$('.wrap-loading').removeClass('display-none');
+		    	
 		    },
 		    success: function(data) {
 		    	if(data.length<3) {alert("결과가 없습니다"); return }
@@ -25,24 +25,13 @@ $(function(){
 		    			left:'-25%'
 		    		},200,function(){		    			
 		    		});
-		    	};
-
-		    	$("#searchTag input[name='one']").attr('checked',true);
-		    	$("#searchTag input[name='two']").attr('checked',true);
-		    	$("#searchTag input[name='dum']").attr('checked',true);
-		    	$("#searchTag input[name='CU']").attr('checked',true);
-		    	$("#searchTag input[name='GS']").attr('checked',true);	
-		    	
-		    	prodlist=$.parseJSON(data);
-			    $('.prod_list ul').hide();
-			    printList();
-			    $('.prod_list ul').show('slow');	  
+		    	};		    	 
 		    },
 		    error:function(request,status,error){
 		        alert("code:"+request.status+"\n"+"error:"+error);
 		    },
 		    complete:function(){
-		    	$('.wrap-loading').addClass('display-none');
+		    	
 		    }
 		});
 	};
@@ -74,8 +63,16 @@ $(function(){
 	});	
 	
 	$('#searchBtn').click(function(){
-		searchWord().then(function(data){	    	
-	    	  	
+		searchWord().then(function(data){
+			$("#searchTag input[name='one']").attr('checked',true);
+	    	$("#searchTag input[name='two']").attr('checked',true);
+	    	$("#searchTag input[name='dum']").attr('checked',true);
+	    	$("#searchTag input[name='CU']").attr('checked',true);
+	    	$("#searchTag input[name='GS']").attr('checked',true);	    	
+	    	prodlist=$.parseJSON(data);
+		    $('.prod_list ul').hide();	
+		    printList();
+		    $('.prod_list ul').show('slow');	 
 		});
 	});	
 	
@@ -88,14 +85,13 @@ $(function(){
 		var GS=$("#searchTag input[name='GS']").is(':checked');
 		$(".prod_list ul li").remove();
     	$("#more").remove();    	
-    	searchWord().then(function(data){
-    		$.each($.parseJSON(data),function(index,item){
-    			var tag="<li><div><span><img src="+item.prodImg+" style='width:180px; height:180px;'><img src="+item.CVS+" class='CVS'></span><p class='prodName'>"
-	        	+item.prodName+"</p><p class='prodPrice'>"+item.prodPrice+"</p><p class='prodTag "+item.prodTag+"'><span>";
-    			if(item.prodTag=='DUM') tag+="덤증정</span></p></div></li>"; else tag+=item.prodTag+"</span></p></div></li>";
-	        	if(((one&&item.prodTag=='1+1')||(two&item.prodTag=='2+1')||(dum&&item.prodTag=='DUM'))&&((CU&&item.CVS=='image/CULogo.jpg')||(GS&&item.CVS=='image/GSLogo.gif')))
-	        		$(".prod_list ul").append(tag);
-	    	});
-		});
+    	
+    	$.each(prodlist,function(index,item){
+    		var tag="<li><div><span><img src="+item.prodImg+" style='width:180px; height:180px;'><img src="+item.CVS+" class='CVS'></span><p class='prodName'>"
+        	+item.prodName+"</p><p class='prodPrice'>"+item.prodPrice+"</p><p class='prodTag "+item.prodTag+"'><span>";
+			if(item.prodTag=='DUM') tag+="덤증정</span></p></div></li>"; else tag+=item.prodTag+"</span></p></div></li>";
+        	if(((one&&item.prodTag=='1+1')||(two&item.prodTag=='2+1')||(dum&&item.prodTag=='DUM'))&&((CU&&item.CVS=='image/CULogo.jpg')||(GS&&item.CVS=='image/GSLogo.gif')))
+        		$(".prod_list ul").append(tag);
+    	});
 	});	
 })
