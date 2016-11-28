@@ -9,6 +9,7 @@ from time import sleep
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from builtins import list
 
 
 class GS(Thread):
@@ -63,8 +64,8 @@ class GS(Thread):
                     dum_price=str(dum.find('p',{'class':'price'})).split('>')[2].split('<')[0]
                     dum_img=str(dum.find('img')['src'])                    
                     dumlist.append([dum_name,dum_price,dum_img])                            
-                sqlFile.write("insert into GS values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+"',''); \n")
-        sqlFile.close();
+                sqlFile.write("insert into GS values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+"','GS'); \n")
+        sqlFile.close();             
         
         dumSqlFile=codecs.open("GS_DUM.sql","w","utf-8")
         dumSqlFile.write("create table GS_DUM(prodName text primary key,prodPrice text,prodImgSrc text); \n")

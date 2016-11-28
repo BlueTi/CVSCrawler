@@ -5,10 +5,12 @@ Created on 2016. 11. 21.
 '''
 
 import sqlite3
+from threading import Thread
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from threading import Thread
+import codecs
+
 
 
 class CPEmart(Thread):
@@ -18,18 +20,26 @@ class CPEmart(Thread):
     def run(self):
         CPEmart.compareEmart(self)
     
+    
+    
     def compareEmart(self):
         
         conn=sqlite3.connect("eventDB.db")
         cur=conn.cursor()
+        CUSQL=open('CU.sql','r').read()
+        cur.execute(CUSQL)
+        conn.commit()
         cur.execute("select prodName from CU")        
         
         rows = cur.fetchall()
         driver = webdriver.Chrome('./driver/chromedriver.exe')
+        
+        sqlfile=codecs.open("CU.sql","w","utf-8")
+        sqlfile.write("create table compare(prodname text, compname text, price text, img text);")
         for row in rows:
-            prod=row[0]
-            prod.replace(' ','%20')
-            url="http://emart.ssg.com/search.ssg?target=all&query="+prod
+            word=row[0]
+            word.replace(' ','%20')
+            url="http://emart.ssg.com/search.ssg?target=all&query="+word
            
             driver.get(url)
             source = driver.page_source
@@ -42,7 +52,9 @@ class CPEmart(Thread):
                 prodname=prod.find('div',{'class':'title'}).find('a',{'data-unit':'list'})['title']
                 price=prod.find('div',{'class':'price'}).find('strong').get_text()
                 print(str(prodname)+"     "+str(price).replace(',', ''))
-                
-            
+                sqlfile.write("insert into compare values('"+word+"','"+str(prodname)+"','"+price+"','"+img+"')")
+                              
+          
+          
         driver.quit()
         conn.close()

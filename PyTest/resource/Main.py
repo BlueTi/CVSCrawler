@@ -5,7 +5,7 @@ Created on 2016. 10. 12.
 @author: 305
 '''
 
-from resource import CU , GS, Compare
+from resource import CU , GS, Compare, sevenEleven
 
 
 def create717_DB():
@@ -13,5 +13,7 @@ def create717_DB():
 if __name__ == '__main__':
     CU.CU().start()
     GS.GS().start()
-    #Compare.CPEmart()
+    #Compare.CPEmart().start()
+    #sevenEleven.Seven.start()
+
     

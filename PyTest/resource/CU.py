@@ -37,13 +37,9 @@ class CU(Thread):
             
         prodList = soup("div",{'class':'prodListWrap'})
     
-        con=sqlite3.connect("eventDB.db")
-        cursor=con.cursor()
-        cursor.execute(" drop table if exists CU")
-        cursor.execute(" create table CU(prodName text,prodPrice int,prodTag text,prodImgSrc text)")   
         
         sqlfile=codecs.open("CU.sql","w","utf-8")
-        sqlfile.write("create table CU(prodName text,prodPrice text,prodTag text,prodImgSrc text,cvs text); \n")
+        sqlfile.write("create table CU(prodName text,prodPrice text,prodTag text,prodImgSrc text,dum text,cvs text); \n")
         
         c=0        
         for d in prodList[0].find_all('li'):
@@ -53,15 +49,7 @@ class CU(Thread):
                 prodPrice=(str(d.find('p',{'class':'prodPrice'})).split('>')[2].split('<')[0])
                 prodTag=(str(d.find('li')).split('>')[1].split('<')[0])
                 query="insert into CU values(?,?,?,?)"
-                cursor.execute(query,(prodName,prodPrice,prodTag,prodImg))
-                sqlfile.write("insert into CU values('"+prodName+"','"+prodPrice+"','"+prodTag+"','"+prodImg+"',''); \n")                     
+                sqlfile.write("insert into CU values('"+prodName+"','"+prodPrice+"','"+prodTag+"','"+prodImg+"','','CU'); \n")                     
             c+=1
-        con.commit()
         sqlfile.close()
     
-        cursor.execute("select * from CU")
-        #print(len(cursor.fetchall()))
-        for row in cursor.fetchall():
-            print(row)
-            
-        con.close()    
