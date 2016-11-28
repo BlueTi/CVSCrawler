@@ -1,12 +1,8 @@
-create table GS_DUM(prodName text primary key,prodPrice text,prodImgSrc text); 
+create table GS_DUM(prodName text,prodPrice text,prodImgSrc text); 
 insert into GS_DUM values('G신선)친환경1등급란(4입)','1,500','http://gs25appimg.gsretail.com/imgsvr/item/GD_8803649554062_063.jpg');
 insert into GS_DUM values('덴마크)내맘대로눈꽃치즈25G','1,000','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801155737580_002.jpg');
 insert into GS_DUM values('오뚜기)참깨라면(소컵)','950','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801045572833.jpg');
 insert into GS_DUM values('오뚜기)참깨라면(소컵)','950','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801045572833.jpg');
-insert into GS_DUM values('오뚜기)참깨라면(소컵)','950','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801045572833.jpg');
-insert into GS_DUM values('오뚜기)참깨라면(소컵)','950','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801045572833.jpg');
-insert into GS_DUM values('오뚜기)참깨라면(소컵)','950','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801045572833.jpg');
-insert into GS_DUM values('리뉴)멀티플러스120ML','3,000','http://gs25appimg.gsretail.com/imgsvr/item/GD_310119034965.jpg');
 insert into GS_DUM values('페리오)스테인제로가글100ML','1,900','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801051070347_001.jpg');
 insert into GS_DUM values('페리오)스테인제로가글100ML','1,900','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801051070347_001.jpg');
 insert into GS_DUM values('롯데)아이시스8.0(500ML)','850','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801056049881_001.jpg');
