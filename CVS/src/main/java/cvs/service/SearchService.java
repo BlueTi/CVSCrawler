@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Service;
 
 import cvs.entity.prodEntity;
+import cvs.repository.DumEntity;
 import cvs.repository.repository;
 
 @Service
@@ -43,6 +44,12 @@ public class SearchService {
 			if(p.getCVS().equals("CU"))	ob.put("CVS", "image/CULogo.jpg");
 			else if(p.getCVS().equals("GS")) ob.put("CVS", "image/GSLogo.gif");
 			
+			if(p.getDum()!=null)
+				for(DumEntity d :repository.getDumList(p.getDum())){
+					ob.put("dumName", d.getDumName());
+					ob.put("dumPrice", d.getDumPrice());
+					ob.put("dumImg", d.getDumImg());
+				}
 			jar.add(ob);
 		}
 		return jar;

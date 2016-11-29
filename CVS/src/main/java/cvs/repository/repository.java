@@ -27,5 +27,12 @@ public class repository {
 		list.addAll(temp.query(sql, (rs,no)->new prodEntity(rs.getString(1),Integer.parseInt(rs.getString(2).replaceAll(",", "")),
 				rs.getString(3),rs.getString(4),rs.getString(6),rs.getString(5))));	
 		return list;
-	}	
+	}
+	
+	public List<DumEntity> getDumList(String name){
+		List<DumEntity>list = new ArrayList<DumEntity>();
+		String sql="select * from dumList where prodName like '%"+name+"%'";
+		list.addAll(temp.query(sql, (rs,no)->new DumEntity(rs.getString(1),Integer.parseInt(rs.getString(2).replace(",","")),rs.getString(3))));
+		return list;
+	}
 }

@@ -133,6 +133,16 @@
 .display-none{ /*감추기*/
     display:none;
 }
+.dum_box img{
+	margin:0 auto;
+}
+
+.dumTag{
+	text-align:center;
+	font-size:24px;
+	margin:5px;
+	margin-bottom:20px;
+}
 
 
 
