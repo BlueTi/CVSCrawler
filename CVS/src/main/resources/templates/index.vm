@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>편의점 탐색기</title>
-<link rel='stylesheet' type='text/css' href='css/index.css'/> 
+<link rel='stylesheet' type='text/css' href='css/index.css?v2'/> 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/textchange.js"></script>
+<script type="text/javascript" src="js/index.js?v2"></script>
 
 </head>
 <body>	
@@ -14,7 +15,7 @@
 		<!-- 이름으로 검색 -->
 	<form id='searchWord' method='post' onSubmit="return false;">
 		<input name="word" type='text'/>
-		<input id='searchBtn' value="검색" type='button'>
+		<input id='searchBtn' value="전체목록" type='button'>
 	</form>
 	
 		<div class="logo"><img src="https://cu.bgfretail.com/images/common/logo.gif"/></div>
@@ -26,8 +27,7 @@
 		<input name="dum" type="checkbox" checked="checked"/><label>덤증정</label>			
 		<input name="CU" type="checkbox" checked="checked"/><label>CU</label>
 		<input name="GS" type="checkbox" checked="checked"/><label>GS</label>	
-	</form>
-	
+	</form>	
 	</div>
 	
 	<div class='prod_list'>

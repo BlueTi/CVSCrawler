@@ -27,7 +27,7 @@ public class SearchService {
 		
 
 		Collections.sort(list,new Comparator<prodEntity>(){
-			public int compare(prodEntity p1,prodEntity p2){
+			public int compare(prodEntity p1,prodEntity p2){				
 				return p1.getProdName().compareTo(p2.getProdName());
 			}
 		});

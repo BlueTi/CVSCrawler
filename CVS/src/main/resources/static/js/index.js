@@ -16,8 +16,8 @@ $(function(){
 		    	
 		    },
 		    success: function(data) {
-		    	if(data.length<3) {alert("결과가 없습니다"); return }
-		    	$(".prod_list ul li").hide();
+		    	if(data.length<3) {alert("결과가 없습니다"); return 0}
+		    	$(".prod_list ul li").remove();
 		    	$("#searchTag").css("visibility","visible");
 		    	if($('#head').css('margin-top')!=null){		    		
 		    		$('#head').animate({
@@ -52,8 +52,6 @@ $(function(){
 		}
 		else
 			$(".prod_list ul").append("<li id='more'><button id='mBtn'>더보기</button></li>");	
-
-		if(prodlist.length-index<12) $('#more').remove();
 	};	
 	
 	
@@ -70,8 +68,9 @@ $(function(){
 	    	$("#searchTag input[name='CU']").attr('checked',true);
 	    	$("#searchTag input[name='GS']").attr('checked',true);	    	
 	    	prodlist=$.parseJSON(data);
-		    $('.prod_list ul').hide();	
-		    printList();
+		    $('.prod_list ul').hide();
+		    if(prodlist!=0)
+		    	printList();
 		    $('.prod_list ul').show('slow');	 
 		});
 	});	
@@ -93,5 +92,12 @@ $(function(){
         	if(((one&&item.prodTag=='1+1')||(two&item.prodTag=='2+1')||(dum&&item.prodTag=='DUM'))&&((CU&&item.CVS=='image/CULogo.jpg')||(GS&&item.CVS=='image/GSLogo.gif')))
         		$(".prod_list ul").append(tag);
     	});
-	});	
+	});		
+	
+	$("input[name=word]").on("textchange",function(){
+		if($("input[name=word]").val().length<1)
+			$("#searchBtn").val("전체목록");			
+		else
+			$("#searchBtn").val("검색");
+	});
 })
