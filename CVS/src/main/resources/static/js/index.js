@@ -40,9 +40,11 @@ $(function(){
 		$(".DUM").closest("li").hover(function(){
 			$(this).children("div").hide();
 			$(this).children(".dum_box").css("display","block");
+			$(this).css("border","10px solid");			
 		},function(){
 			$(this).children("div").show();
-			$(this).children(".dum_box").css("display","none");
+			$(this).children(".dum_box").css("display","none");		
+			$(this).css("border","0 solid");
 		});	
 	}
 	function printList(){

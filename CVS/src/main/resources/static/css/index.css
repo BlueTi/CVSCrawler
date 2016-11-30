@@ -134,16 +134,19 @@
     display:none;
 }
 .dum_box img{
-	margin:0 auto;
+	margin-left: 20%;
 }
 
 .dumTag{
 	text-align:center;
 	font-size:24px;
 	margin:5px;
-	margin-bottom:20px;
 }
-
+li{
+	 box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
 
 
 
