@@ -18,8 +18,7 @@ class CPEmart(Thread):
         super(CPEmart, self).__init__()
         
     def run(self):
-        CPEmart.compareEmart(self)
-    
+        CPEmart.compareEmart(self) 
     
     
     def compareEmart(self):
@@ -34,7 +33,7 @@ class CPEmart(Thread):
         rows = cur.fetchall()
         driver = webdriver.Chrome('./driver/chromedriver.exe')
         
-        sqlfile=codecs.open("CU.sql","w","utf-8")
+        sqlfile=codecs.open("compare.sql","w","utf-8")
         sqlfile.write("create table compare(prodname text, compname text, price text, img text);")
         for row in rows:
             word=row[0]
@@ -52,9 +51,6 @@ class CPEmart(Thread):
                 prodname=prod.find('div',{'class':'title'}).find('a',{'data-unit':'list'})['title']
                 price=prod.find('div',{'class':'price'}).find('strong').get_text()
                 print(str(prodname)+"     "+str(price).replace(',', ''))
-                sqlfile.write("insert into compare values('"+word+"','"+str(prodname)+"','"+price+"','"+img+"')")
-                              
-          
-          
+                sqlfile.write("insert into compare values('"+word+"','"+str(prodname)+"','"+price+"','"+img+"')")         
         driver.quit()
         conn.close()

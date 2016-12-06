@@ -3,13 +3,15 @@ Created on 2016. 10. 28.
 
 @author: 305
 '''
+from builtins import list
 import codecs
+from pickle import NONE
 from threading import Thread
 from time import sleep
 
 from bs4 import BeautifulSoup
+from pyasn1.compat.octets import null
 from selenium import webdriver
-from builtins import list
 
 
 class GS(Thread):
@@ -43,14 +45,18 @@ class GS(Thread):
     
     
         sqlFile=codecs.open("GS.sql","w","utf-8")        
-        sqlFile.write("create table GS(prodName text,prodPrice text,prodTag text,prodImgSrc text,dum text,cvs text); \n")
         dumlist=[]
         
         for d in prodList:
             for p in d.find_all("div",{'class':'prod_box'}):
                 prod_name=str(p.find('p',{'class':'tit'})).split('>')[1].split('<')[0]
                 prod_price=(str(p.find('span',{'class':'cost'})).split('>')[1].split('<')[0])
-                prod_img=str(p.find('img')['src'])
+                print(p.find('img'))
+                if p.find('img') is None:                    
+                    prod_img=""                    
+                else:
+                    prod_img=str(p.find('img')['src'])
+                    
                 prod_tag=p.find('div',{'class':'flag_box'})
                 prod_dum=""
                 if(p.find('div',{'class',"ONE_TO_ONE"})!=None):
@@ -64,7 +70,7 @@ class GS(Thread):
                     dum_price=str(dum.find('p',{'class':'price'})).split('>')[2].split('<')[0]
                     dum_img=str(dum.find('img')['src'])                    
                     dumlist.append([dum_name,dum_price,dum_img])                            
-                sqlFile.write("insert into GS values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+"','GS'); \n")
+                sqlFile.write("insert into prodList values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+"','GS'); \n")
         sqlFile.close();             
         
         dumSqlFile=codecs.open("GS_DUM.sql","w","utf-8")

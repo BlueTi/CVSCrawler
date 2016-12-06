@@ -8,11 +8,10 @@ Created on 2016. 10. 12.
 from resource import CU , GS, Compare, sevenEleven
 
 
-def create717_DB():
-    pass
-if __name__ == '__main__':
-    CU.CU().start()
-    GS.GS().start()
+if __name__ == '__main__':  
+    CU.CU_List().start()
+    #CU.CU().start()
+    #GS.GS().start()    
     #Compare.CPEmart().start()
     #sevenEleven.Seven.start()
 

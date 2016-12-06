@@ -5,7 +5,6 @@ public class prodEntity {
 	private int prodPrice;
 	
 	public prodEntity(){}	
-	
 	public prodEntity(String prodName, int prodPrice, String prodTag, String prodImg,String CVS,String dum) {
 		super();
 		this.prodName = prodName;

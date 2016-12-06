@@ -13,7 +13,7 @@ $(function(){
 		    type : "post",
 		    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 		    beforeSend:function(){
-		    	
+		    	alert("검색시작");
 		    },
 		    success: function(data) {
 		    	if(data.length<3) {alert("결과가 없습니다"); return 0}
@@ -44,18 +44,20 @@ $(function(){
 		},function(){
 			$(this).children("div").show();
 			$(this).children(".dum_box").css("display","none");		
-			$(this).css("border","0 solid");
+			$(this).css("border","1px solid #d0d0d0");
+			$(this).css("border-bottom",'white');
+			$(this).css("border-top","white");
 		});	
 	}
 	function printList(){
 		var max=index+12; 
 		if(max>=prodlist.length)max=prodlist.length;
 		for(var i=index;i<max;i++,index++){
-			var tag="<li><div><span><img src=";
+			var tag="<li><div><span><a href='#'><img src=";
 			if(prodlist[i].prodImg!="") tag+=prodlist[i].prodImg;
 			else tag+="image/no_detail_img.gif"
 			
-			tag+=" style='width:180px; height:180px;'><img src="+prodlist[i].CVS+" class='CVS'></span><p class='prodName'>"
+			tag+=" style='width:180px; height:180px;'></a><img src="+prodlist[i].CVS+" class='CVS'></span><p class='prodName'>"
         	+prodlist[i].prodName+"</p><p class='prodPrice'>"+prodlist[i].prodPrice+"원</p><p class='prodTag "+prodlist[i].prodTag+"'><span>";
 			if(prodlist[i].prodTag=='DUM') 
 				tag+="덤증정</span></p></div><div class=dum_box style='display:none'><p class='dumTag'>증정상품</p><img src="+prodlist[i].dumImg+
@@ -63,12 +65,13 @@ $(function(){
 			else tag+=prodlist[i].prodTag+"</span></p></div></li>";
 			$(".prod_list ul").append(tag);
 		}
-		if($('#mBtn').length){
+		
+		if($('#more').length>0){
 			$("#more").appendTo($('.prod_list ul'));
-			if(prodlist.length-index<13)$('#more').remove();
 		}
 		else
-			$(".prod_list ul").append("<li id='more'><button id='mBtn'>더보기</button></li>");	
+			$(".prod_list ul").append("<li id='more'><button id='mBtn'>더보기</button></li>");
+		if(prodlist.length-index<13)$('#more').remove();
 		viewDUM();
 	};	
 	
