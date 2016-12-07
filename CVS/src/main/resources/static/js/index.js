@@ -13,7 +13,7 @@ $(function(){
 		    type : "post",
 		    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 		    beforeSend:function(){
-		    	alert("검색시작");
+		    	$("body").append("<img id='loading' src='/image/loading.gif?v1'>");
 		    },
 		    success: function(data) {
 		    	if(data.length<3) {alert("결과가 없습니다"); return 0}
@@ -31,7 +31,7 @@ $(function(){
 		        alert("code:"+request.status+"\n"+"error:"+error);
 		    },
 		    complete:function(){
-		    	
+		    	$("#loading").remove()
 		    }
 		});
 	};
