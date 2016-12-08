@@ -74,7 +74,7 @@ class GS(Thread):
         sqlFile.close();             
         
         dumSqlFile=codecs.open("GS_DUM.sql","w","utf-8")
-        dumSqlFile.write("create table GS_DUM(prodName text primary key,prodPrice text,prodImgSrc text); \n")
+        dumSqlFile.write("create table GS_DUM(prodName text ,prodPrice text,prodImgSrc text); \n")
         for data in dumlist:
             dumSqlFile.write("insert into GS_DUM values('"+data[0]+"','"+data[1]+"','"+data[2]+"');\n")            
         dumSqlFile.close()

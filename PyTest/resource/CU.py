@@ -66,17 +66,48 @@ class CU_List(Thread):
         driver.get(url)
         
         driver.execute_script("setCond('setB');")
+        sleep(2)
         source = driver.page_source
         soup = BeautifulSoup(source,"html.parser")
-        check=soup.find_all("div",{'id':'nothing'})
+        check=0
         
-        while(len(check)==0):
-            driver.execute_script("nextPage(1);")
+        while(check==0):
+            driver.execute_script("nextPage(1);")            
+            sleep(2)
             source = driver.page_source
             soup = BeautifulSoup(source,"html.parser")
-            check=soup.find_all("div",{'id':'nothing'})
+            for s in soup.find_all("div",{"class":"prodListWrap"}):
+                if(s.get_text().find("조회된 상품이 없습니다.")):
+                    check=1    
+        
+        sqlfile=codecs.open("menu.sql",'w','utf-8')
+        for d in soup.find_all("div",{"class":"prodListWrap"}):
+            for a in d.find_all('p',{'class','prodName'}):
+                sqlfile.write("insert into menu values('"+a.get_text()+"','식품');\n")
+            
+        
+        
+        url="http://cu.bgfretail.com/product/product.do?category=product&depth2=3&depth3=3"
+        driver.get(url)
+        driver.execute_script("setCond('setB');")
+        sleep(2)
+        source = driver.page_source
+        soup = BeautifulSoup(source,"html.parser")
+        check=0
+        
+        while(check==0):
+            driver.execute_script("nextPage(1);")            
             sleep(2)
+            source = driver.page_source
+            soup = BeautifulSoup(source,"html.parser")
+            for s in soup.find_all("div",{"class":"prodListWrap"}):
+                if(s.get_text().find("조회된 상품이 없습니다.")):
+                    check=1                          
         driver.quit()
         
+        for d in soup.find_all("div",{"class":"prodListWrap"}):
+            for a in d.find_all('p',{'class','prodName'}):
+                sqlfile.write("insert into menu values('"+a.get_text()+"','과자');\n")
+            
         
         

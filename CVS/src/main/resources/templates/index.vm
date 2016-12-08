@@ -16,6 +16,7 @@
 	<form id='searchWord' method='post' onSubmit="return false;">
 		<input name="word" type='text'/>
 		<input id='searchBtn' value="전체목록" type='button'>
+		<input id='foodBtn' value='식품' type='button'>
 	</form>
 	
 		<div class="logo"><img src="https://cu.bgfretail.com/images/common/logo.gif"/></div>

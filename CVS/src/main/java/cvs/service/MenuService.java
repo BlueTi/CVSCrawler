@@ -8,7 +8,6 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Service;
 
 import cvs.entity.DumEntity;
@@ -16,22 +15,21 @@ import cvs.entity.prodEntity;
 import cvs.repository.repository;
 
 @Service
-@AutoConfigurationPackage
-public class SearchService {
+public class MenuService {
 	@Autowired
 	repository repository;
-	
-	public JSONArray searchWord(String word){
+
+	public JSONArray menuFood() {
 		List<prodEntity> list = new ArrayList<prodEntity>();
-		list=repository.getWordList(word);
-		
+		list=repository.getMenuFoodList();
+	
 
 		Collections.sort(list,new Comparator<prodEntity>(){
 			public int compare(prodEntity p1,prodEntity p2){				
 				return p1.getProdName().compareTo(p2.getProdName());
 			}
 		});
-		
+	
 		JSONArray jar = new JSONArray();
 		for(prodEntity p :list){
 			JSONObject ob = new JSONObject();			
@@ -42,7 +40,7 @@ public class SearchService {
 			
 			if(p.getCVS().equals("CU"))	ob.put("CVS", "image/CULogo.jpg");
 			else if(p.getCVS().equals("GS")) ob.put("CVS", "image/GSLogo.gif");
-			
+		
 			if(p.getDum()!=null)
 				for(DumEntity d :repository.getDumList(p.getDum())){
 					ob.put("dumName", d.getDumName());
@@ -53,5 +51,4 @@ public class SearchService {
 		}
 		return jar;
 	}
-	
-}
+}	

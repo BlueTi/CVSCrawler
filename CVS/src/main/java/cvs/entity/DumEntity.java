@@ -1,4 +1,4 @@
-package cvs.repository;
+package cvs.entity;
 
 public class DumEntity {
 	private String dumName,dumImg;

@@ -80,21 +80,58 @@ $(function(){
 		printList();
 		$("#more").appendTo($('.prod_list ul'));
 	});	
-	
+	/* 검색 버튼 클릭*/
 	$('#searchBtn').click(function(){
+		$('.prod_list ul').hide();
 		searchWord().then(function(data){
 			$("#searchTag input[name='one']").attr('checked',true);
 	    	$("#searchTag input[name='two']").attr('checked',true);
 	    	$("#searchTag input[name='dum']").attr('checked',true);
 	    	$("#searchTag input[name='CU']").attr('checked',true);
 	    	$("#searchTag input[name='GS']").attr('checked',true);	    	
-	    	prodlist=$.parseJSON(data);
-		    $('.prod_list ul').hide();
+	    	prodlist=$.parseJSON(data);		    
 		    if(prodlist!=0)
 		    	printList();
 		    $('.prod_list ul').show('slow');	 
 		});
 	});	
+	/*식품 버튼 클릭*/
+	$('#foodBtn').click(function(){
+		$('.prod_list ul').hide();		
+		var result=$.ajax({
+		    url : "/ajax/menuFood",
+		    datatype:"json",
+		    type : "post",
+		    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		    beforeSend:function(){
+		    	$("body").append("<img id='loading' src='/image/loading.gif?v1'>");
+		    },
+		    success: function(data) {
+		    	if(data.length<3) {alert("결과가 없습니다"); return 0}
+		    	$(".prod_list ul li").remove();
+		    	$("#searchTag").css("visibility","visible");
+		    	if($('#head').css('margin-top')!=null){		    		
+		    		$('#head').animate({
+		    			top:'1%',
+		    			left:'-25%'
+		    		},200,function(){		    			
+		    		});
+		    	}
+		    	prodlist=$.parseJSON(data);		    
+			    if(prodlist!=0)
+			    	printList();
+			    $('.prod_list ul').show('slow');	 
+		    },
+		    error:function(request,status,error){
+		        alert("code:"+request.status+"\n"+"error:"+error);
+		    },
+		    complete:function(){
+		    	$("#loading").remove()
+		    }
+		});
+		
+	});
+	
 	
 	/*태그폼 분류 */
 	$("#searchTag").change(function(){

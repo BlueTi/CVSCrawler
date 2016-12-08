@@ -24,12 +24,14 @@ class Seven(Thread):
         soup = BeautifulSoup(source,"html.parser")
         check=soup.find_all("li",{'class':'btn_more'})
         
+        """
         while(len(check==0)):
             driver.execute("fncMore('1');")
             source=driver.page_source
             soup = BeautifulSoup(source,"html.parser")
             check=soup.find_all("li",{'class':'btn_more'})
             sleep(2)            
-        driver.quit()
+        driver.quit()-#
+        """
         
         prodList=soup()
