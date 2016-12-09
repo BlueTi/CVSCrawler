@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cvs.service.MenuService;
@@ -21,9 +22,9 @@ public class MenuControll {
 	
 	@ResponseBody
 	@RequestMapping(value="/ajax/menuFood",method=RequestMethod.POST)
-	public void menuFood(HttpServletResponse resp) throws Exception{	
+	public void menuFood(HttpServletResponse resp,@RequestParam(value="word")String word) throws Exception{	
 		resp.setCharacterEncoding("utf-8");
 		PrintWriter out = resp.getWriter();
-		out.print(ms.menuFood());
+		out.print(ms.menu(word));
 	}
 }

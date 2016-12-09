@@ -97,9 +97,12 @@ $(function(){
 	});	
 	/*식품 버튼 클릭*/
 	$('#foodBtn').click(function(){
+		index=0;
 		$('.prod_list ul').hide();		
-		var result=$.ajax({
+		var word="word=식품";
+		$.ajax({
 		    url : "/ajax/menuFood",
+		    data: word,
 		    datatype:"json",
 		    type : "post",
 		    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
@@ -128,10 +131,8 @@ $(function(){
 		    complete:function(){
 		    	$("#loading").remove()
 		    }
-		});
-		
+		});		
 	});
-	
 	
 	/*태그폼 분류 */
 	$("#searchTag").change(function(){
@@ -156,6 +157,17 @@ $(function(){
     	});
     	viewDUM();
 	});		
+	$("input[name=word]").focus(function(){
+		var input= $("input[name=word]");
+		if(input.val()=="검색") input.val("");
+		$("input[name=word]").animate({
+			width:"50%"
+		});
+	});
+	$("input[name=word]").blur(function(){
+		$("input[name=word]").animate({
+		});
+	});
 	
 	$("input[name=word]").on("textchange",function(){
 		if($("input[name=word]").val().length<1)

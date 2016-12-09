@@ -19,9 +19,9 @@ public class MenuService {
 	@Autowired
 	repository repository;
 
-	public JSONArray menuFood() {
+	public JSONArray menu(String word) {
 		List<prodEntity> list = new ArrayList<prodEntity>();
-		list=repository.getMenuFoodList();
+		list=repository.getMenuList(word);
 	
 
 		Collections.sort(list,new Comparator<prodEntity>(){

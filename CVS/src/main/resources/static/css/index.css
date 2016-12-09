@@ -1,12 +1,13 @@
 @CHARSET "UTF-8";
 
 #head{
+	width:500px;
 	position:absolute;
 	margin-left:30%;	
 }
 #head form input[type=text]{
 	font: bold 16px 굴림;
-	width: 60%;
+	width: 10%;
 	height: 30px;
 	border: 2px solid;
 } 
