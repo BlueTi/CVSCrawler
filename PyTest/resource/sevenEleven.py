@@ -4,9 +4,11 @@ Created on 2016. 11. 28.
 @author: Administrator
 '''
 from threading import Thread
-from selenium import webdriver
-from bs4 import BeautifulSoup
 from time import sleep
+
+from bs4 import BeautifulSoup
+from selenium import webdriver
+import codecs
 
 
 class Seven(Thread):
@@ -22,16 +24,23 @@ class Seven(Thread):
         driver.get(url)
         source = driver.page_source
         soup = BeautifulSoup(source,"html.parser")
-        check=soup.find_all("li",{'class':'btn_more'})
+        check=0
         
-        """
-        while(len(check==0)):
-            driver.execute("fncMore('1');")
+        while(1):            
+            driver.execute_script("fncMore('1');")
+            sleep(2)
             source=driver.page_source
             soup = BeautifulSoup(source,"html.parser")
-            check=soup.find_all("li",{'class':'btn_more'})
-            sleep(2)            
-        driver.quit()-#
-        """
+            tem=(len(soup.find("ul",{"id":"listUl"}).find_all("li")))
+            if check==tem: 
+                break;
+            else:
+                check=tem
+            
+        driver.quit()      
+        prodList=soup.find("ul",{"id":"listUl"}).find_all("li")        
+        for data in prodList:
+            print()
+            
+            
         
-        prodList=soup()

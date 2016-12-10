@@ -80,13 +80,14 @@ class CU_List(Thread):
                 if(s.get_text().find("조회된 상품이 없습니다.")):
                     check=1    
         
-        sqlfile=codecs.open("menu.sql",'w','utf-8')
+        #sqlfile=codecs.open("menu.sql",'w','utf-8')
         for d in soup.find_all("div",{"class":"prodListWrap"}):
             for a in d.find_all('p',{'class','prodName'}):
-                sqlfile.write("insert into menu values('"+a.get_text()+"','식품');\n")
+                #sqlfile.write("insert into menu values('"+a.get_text()+"','식품');\n")
+                print()
             
         
-        
+        """
         url="http://cu.bgfretail.com/product/product.do?category=product&depth2=3&depth3=3"
         driver.get(url)
         driver.execute_script("setCond('setB');")
@@ -108,6 +109,5 @@ class CU_List(Thread):
         for d in soup.find_all("div",{"class":"prodListWrap"}):
             for a in d.find_all('p',{'class','prodName'}):
                 sqlfile.write("insert into menu values('"+a.get_text()+"','과자');\n")
+        """
             
-        
-        
