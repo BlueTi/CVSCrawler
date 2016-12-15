@@ -12,7 +12,7 @@ if __name__ == '__main__':
     #CU.CU_List().start()
     #CU.CU().start()
     #GS.GS().start()    
-    #Compare.CPEmart().start()
-    sevenEleven.Seven().start()
+    Compare.CPEmart().start()
+    #sevenEleven.Seven().start()
 
     

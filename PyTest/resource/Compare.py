@@ -18,7 +18,8 @@ class CPEmart(Thread):
         super(CPEmart, self).__init__()
         
     def run(self):
-        CPEmart.compareEmart(self) 
+        #CPEmart.compareEmart(self) 
+        CPEmart.removingduplication(self)
     
     
     def compareEmart(self):
@@ -54,3 +55,19 @@ class CPEmart(Thread):
                 sqlfile.write("insert into compare values('"+word+"','"+str(prodname)+"','"+price+"','"+img+"')")         
         driver.quit()
         conn.close()
+        
+    def removingduplication(self):
+        scriptList=['sevenDum.sql','GS_DUM.sql']
+        
+        for name in scriptList:
+            sqlfile=codecs.open(name, 'r', 'utf-8')
+        
+            list=[]
+            for line in sqlfile:
+                    if line not in list:
+                        list.append(line)
+            newfile =codecs.open(name,'w','utf-8')
+            for d in list:
+                newfile.write(d)
+        
+        

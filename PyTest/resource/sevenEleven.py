@@ -19,14 +19,14 @@ class Seven(Thread):
         Seven.create7DB(self)
         
     def create7DB(self):
-        script_list=['1','2','3','4']
         url="https://www.7-eleven.co.kr/product/presentList.asp"
         driver = webdriver.Chrome('./driver/chromedriver.exe')        
         sqlfile=codecs.open('sevenEleven.sql', 'w', 'utf-8')
         dumsql=codecs.open('sevenDum.sql','w','utf-8')   
         driver.get(url)
         sleep(2)
-        for no in script_list:
+        for n in range(1,5):
+            no=str(n)
             print("fncTab('"+no+"')")
             driver.execute_script("fncTab('"+no+"');")
             sleep(5)
@@ -65,7 +65,7 @@ class Seven(Thread):
                     else: prodDum=''
                     #print(prodName+"','"+prodPrice+"','"+prodTag+"','"+prodImg+"',"+str(prodDum))
                     sqlfile.write("insert into prodList values('"+prodName+"','"+prodPrice+"','"+prodTag+"','"+prodImg+"','"+prodDum+"','sevenEleven'); \n")
-            
-            for data in dumlist:
+
+            for data in dumlist:                   
                 dumsql.write("insert into dumList values('"+data[0]+"','"+data[1]+"','"+data[2]+"');\n")
                     
