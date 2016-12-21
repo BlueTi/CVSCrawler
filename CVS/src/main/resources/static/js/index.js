@@ -59,7 +59,7 @@ $(function(){
 			if(prodlist[i].prodImg!="") tag+=prodlist[i].prodImg;
 			else tag+="image/no_detail_img.gif"
 			
-			tag+="></a><img src="+prodlist[i].CVS+" class='CVS'></span><p class='prodName'>"
+			tag+=" ></a><img src="+prodlist[i].CVS+" class='CVS'></span><p class='prodName'>"
         	+prodlist[i].prodName+"</p><p class='prodPrice'>"+prodlist[i].prodPrice+"원</p><p class='prodTag "+prodlist[i].prodTag+"'><span>";
 			if(prodlist[i].prodTag=='DUM') 
 				tag+="덤증정</span></p></div><div class=dum_box style='display:none'><p class='dumTag'>증정상품</p><img src="+prodlist[i].dumImg+

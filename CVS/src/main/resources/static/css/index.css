@@ -86,6 +86,7 @@
 }
 .prod_list ul li a img{
 	width:auto;
+	max-width:180px;
 	height:180px;
 }
 .prodName{
