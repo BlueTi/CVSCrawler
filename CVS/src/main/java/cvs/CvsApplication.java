@@ -20,7 +20,7 @@ public class CvsApplication {
 	public DataSource dataSource(){
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 		builder.setType(EmbeddedDatabaseType.H2);
-		builder.addScripts("/DB/start.sql","/DB/CU.sql","/DB/GS.sql","/DB/GS_DUM.sql","/DB/menu.sql");
+		builder.addScripts("/DB/start.sql","/DB/CU.sql","/DB/GS.sql","/DB/sevenEleven.sql","/DB/GS_DUM.sql","/DB/menu.sql");
 		EmbeddedDatabase db=builder.build();
 		return db;
 	}

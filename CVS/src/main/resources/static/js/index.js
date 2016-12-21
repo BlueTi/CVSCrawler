@@ -14,6 +14,7 @@ $(function(){
 		    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 		    beforeSend:function(){
 		    	$("body").append("<img id='loading' src='/image/loading.gif?v1'>");
+		    	$("html").append("<div id='blind'> </div>")
 		    },
 		    success: function(data) {
 		    	if(data.length<3) {alert("결과가 없습니다"); return 0}
@@ -31,7 +32,8 @@ $(function(){
 		        alert("code:"+request.status+"\n"+"error:"+error);
 		    },
 		    complete:function(){
-		    	$("#loading").remove()
+		    	$("#loading").remove();
+		    	$("#blind").remove();
 		    }
 		});
 	};
@@ -57,11 +59,11 @@ $(function(){
 			if(prodlist[i].prodImg!="") tag+=prodlist[i].prodImg;
 			else tag+="image/no_detail_img.gif"
 			
-			tag+=" style='width:180px; height:180px;'></a><img src="+prodlist[i].CVS+" class='CVS'></span><p class='prodName'>"
+			tag+="></a><img src="+prodlist[i].CVS+" class='CVS'></span><p class='prodName'>"
         	+prodlist[i].prodName+"</p><p class='prodPrice'>"+prodlist[i].prodPrice+"원</p><p class='prodTag "+prodlist[i].prodTag+"'><span>";
 			if(prodlist[i].prodTag=='DUM') 
 				tag+="덤증정</span></p></div><div class=dum_box style='display:none'><p class='dumTag'>증정상품</p><img src="+prodlist[i].dumImg+
-				" style='width:122px; height:122px;'><p class='dumName'>"+prodlist[i].dumName+"</p><p class='dumPrice'>"+prodlist[i].dumPrice+"</p></div></li>"; 
+				"><p class='dumName'>"+prodlist[i].dumName+"</p><p class='dumPrice'>"+prodlist[i].dumPrice+"</p></div></li>"; 
 			else tag+=prodlist[i].prodTag+"</span></p></div></li>";
 			$(".prod_list ul").append(tag);
 		}
@@ -145,11 +147,11 @@ $(function(){
     	$("#more").remove();    	
     	
     	$.each(prodlist,function(index,item){
-    		var tag="<li><div><span><img src="+item.prodImg+" style='width:180px; height:180px;'><img src="+item.CVS+" class='CVS'></span><p class='prodName'>"
+    		var tag="<li><div><span><img src="+item.prodImg+"><img src="+item.CVS+" class='CVS'></span><p class='prodName'>"
         	+item.prodName+"</p><p class='prodPrice'>"+item.prodPrice+"</p><p class='prodTag "+item.prodTag+"'><span>";
 			if(item.prodTag=='DUM') 
 				tag+="덤증정</span></p></div><div class=dum_box style='display:none'><p class='dumTag'>증정상품</p><img src="+item.dumImg+
-				" style='width:122px; height:122px;'><p class='dumName'>"+item.dumName+"</p><p class='dumPrice'>"+item.dumPrice+"</p></div></li>"; 
+				"><p class='dumName'>"+item.dumName+"</p><p class='dumPrice'>"+item.dumPrice+"</p></div></li>"; 
 			
 			else tag+=item.prodTag+"</span></p></div></li>";
         	if(((one&&item.prodTag=='1+1')||(two&item.prodTag=='2+1')||(dum&&item.prodTag=='DUM'))&&((CU&&item.CVS=='image/CULogo.jpg')||(GS&&item.CVS=='image/GSLogo.gif')))

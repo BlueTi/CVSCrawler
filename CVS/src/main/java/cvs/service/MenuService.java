@@ -40,6 +40,7 @@ public class MenuService {
 			
 			if(p.getCVS().equals("CU"))	ob.put("CVS", "image/CULogo.jpg");
 			else if(p.getCVS().equals("GS")) ob.put("CVS", "image/GSLogo.gif");
+			else if(p.getCVS().equals("sevenEleven")) ob.put("CVS", "image/7Logo.png");
 		
 			if(p.getDum()!=null)
 				for(DumEntity d :repository.getDumList(p.getDum())){

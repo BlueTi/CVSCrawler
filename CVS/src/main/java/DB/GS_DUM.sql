@@ -1,4 +1,3 @@
-create table DUMList(prodName text,prodPrice text,prodImgSrc text); 
 insert into DUMList values('롯데)몽쉘카카오3000','3,000','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801062273331_332.jpg');
 insert into DUMList values('하리보)피라미도스300','300','http://gs25appimg.gsretail.com/imgsvr/item/GD_4001686354032_001.jpg');
 insert into DUMList values('코카콜라슬림캔250ML','1,400','http://gs25appimg.gsretail.com/imgsvr/item/GD_8801094013004_005.jpg');

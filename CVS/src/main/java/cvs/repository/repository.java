@@ -26,7 +26,7 @@ public class repository {
 		List<prodEntity>list = new ArrayList<prodEntity>();
 		String sql="select * from prodList where prodName like '%"+word+"%'";
 		list.addAll(temp.query(sql, (rs,no)->new prodEntity(rs.getString(1),Integer.parseInt(rs.getString(2).replaceAll(",", "")),
-				rs.getString(3),rs.getString(4),rs.getString(6),rs.getString(5))));	
+				rs.getString(3),rs.getString(4),rs.getString(6),rs.getString(5))));
 		return list;
 	}
 	
