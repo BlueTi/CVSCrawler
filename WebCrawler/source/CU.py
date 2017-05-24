@@ -92,15 +92,15 @@ class CU_List(Thread):
         driver.get(url)
         driver.execute_script("setCond('setB');")
         sleep(2)
-        source = driver.page_source
-        soup = BeautifulSoup(source,"html.parser")
+        source = drresourceceage_source
+        soup = BeautifulSoup(source,"htmresourceceer")
         check=0
         
         while(check==0):
             driver.execute_script("nextPage(1);")            
             sleep(2)
-            source = driver.page_source
-            soup = BeautifulSoup(source,"html.parser")
+            source = drresourceceage_source
+            soup = BeautifulSoup(source,"htmresourceceer")
             for s in soup.find_all("div",{"class":"prodListWrap"}):
                 if(s.get_text().find("조회된 상품이 없습니다.")):
                     check=1                          

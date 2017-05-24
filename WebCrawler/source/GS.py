@@ -5,12 +5,10 @@ Created on 2016. 10. 28.
 '''
 from builtins import list
 import codecs
-from pickle import NONE
 from threading import Thread
 from time import sleep
 
 from bs4 import BeautifulSoup
-from pyasn1.compat.octets import null
 from selenium import webdriver
 
 
