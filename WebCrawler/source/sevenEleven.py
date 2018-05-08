@@ -21,22 +21,20 @@ class Seven(Thread):
     def create7DB(self):
         url="https://www.7-eleven.co.kr/product/presentList.asp"
         driver = webdriver.Chrome('./driver/chromedriver.exe')        
-        sqlfile=codecs.open('sevenEleven.sql', 'w', 'utf-8')
-        dumsql=codecs.open('sevenDum.sql','w','utf-8')   
+        sqlfile=codecs.open('sevenEleven.txt', 'w', 'utf-8')
         driver.get(url)
         sleep(2)
         for n in range(1,5):
             no=str(n)
-            print("fncTab('"+no+"')")
             driver.execute_script("fncTab('"+no+"');")
-            sleep(5)
+            sleep(4)
             source = driver.page_source
             soup = BeautifulSoup(source,"html.parser")
             check=0
         
             while(1):            
                 driver.execute_script("fncMore('"+no+"');")
-                sleep(1)
+                sleep(0.8)
                 source=driver.page_source
                 soup = BeautifulSoup(source,"html.parser")
                 tem=(len(soup.find("ul",{"id":"listUl"}).find_all("li")))
@@ -60,12 +58,12 @@ class Seven(Thread):
                         dumPrice=str(prodDum[1].find('span').get_text())
                         dumImg="https://7-eleven.co.kr"+str(data.find_all('img')[1]['src'])
                         prodDum=dumName
-                        print(prodDum+' '+dumPrice+' '+dumImg)
-                        dumlist.append([prodDum,dumPrice,dumImg])
+                        dumlist.append([prodName,prodDum,dumPrice,dumImg])
+                        prodTag="증정"
                     else: prodDum=''
-                    #print(prodName+"','"+prodPrice+"','"+prodTag+"','"+prodImg+"',"+str(prodDum))
-                    sqlfile.write("insert into prodList values('"+prodName+"','"+prodPrice+"','"+prodTag+"','"+prodImg+"','"+prodDum+"','sevenEleven'); \n")
+                    
+                    sqlfile.write(prodName+", "+prodPrice+" , "+prodTag+" , "+prodImg+"\n")
 
             for data in dumlist:                   
-                dumsql.write("insert into dumList values('"+data[0]+"','"+data[1]+"','"+data[2]+"');\n")
+                sqlfile.write("'"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"\n")
                     

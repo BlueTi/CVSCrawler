@@ -25,7 +25,6 @@ class GS(Thread):
         driver.get(url)
         source = driver.page_source
         soup = BeautifulSoup(source,"html.parser")    
-        driver.find_element_by_id("TOTAL").click()
         sleep(2)
         check= soup.find('ul',{"class":"prod_list"}).find("div")
         
@@ -42,14 +41,13 @@ class GS(Thread):
     
     
     
-        sqlFile=codecs.open("GS.sql","w","utf-8")        
+        sqlFile=codecs.open("GS.txt","w","utf-8")        
         dumlist=[]
         
         for d in prodList:
             for p in d.find_all("div",{'class':'prod_box'}):
                 prod_name=str(p.find('p',{'class':'tit'})).split('>')[1].split('<')[0]
                 prod_price=(str(p.find('span',{'class':'cost'})).split('>')[1].split('<')[0])
-                print(p.find('img'))
                 if p.find('img') is None:                    
                     prod_img=""                    
                 else:
@@ -69,10 +67,8 @@ class GS(Thread):
                     dum_img=str(dum.find('img')['src'])                    
                     dumlist.append([dum_name,dum_price,dum_img])                            
                 sqlFile.write("insert into prodList values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+"','GS'); \n")
-        sqlFile.close();             
-        
-        dumSqlFile=codecs.open("GS_DUM.sql","w","utf-8")
-        dumSqlFile.write("create table GS_DUM(prodName text ,prodPrice text,prodImgSrc text); \n")
+                
+                
         for data in dumlist:
-            dumSqlFile.write("insert into GS_DUM values('"+data[0]+"','"+data[1]+"','"+data[2]+"');\n")            
-        dumSqlFile.close()
+            sqlFile.write("insert into GS_DUM values('"+data[0]+"','"+data[1]+"','"+data[2]+"');\n")            
+        sqlFile.close()

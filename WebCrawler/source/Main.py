@@ -4,14 +4,13 @@ Created on 2016. 10. 12.
 
 @author: 305
 '''
-from resource import CU, GS, sevenEleven
+from threading import Thread
+
+from source import CU, GS, sevenEleven
 
 
 if __name__ == '__main__':  
-    #CU.CU_List().start()
-    CU.CU().start()
-    GS.GS().start()    
-    #Compare.CPEmart().start()
-    sevenEleven.Seven().start()
-
+    #thread1 = Thread(CU.CU().start())
+    thread2 = Thread(GS.GS().start())    
+    #thread3 = Thread(sevenEleven.Seven().start())
     
