@@ -10,6 +10,7 @@ from time import sleep
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import itertools
 
 
 class GS(Thread):
@@ -24,7 +25,8 @@ class GS(Thread):
         driver = webdriver.Chrome('./driver/chromedriver.exe')
         driver.get(url)
         source = driver.page_source
-        soup = BeautifulSoup(source,"html.parser")    
+        soup = BeautifulSoup(source,"html.parser")
+        driver.find_element_by_link_text("전체").click()
         sleep(2)
         check= soup.find('ul',{"class":"prod_list"}).find("div")
         
@@ -42,7 +44,7 @@ class GS(Thread):
     
     
         sqlFile=codecs.open("GS.txt","w","utf-8")        
-        dumlist=[]
+        dumlist=list()
         
         for d in prodList:
             for p in d.find_all("div",{'class':'prod_box'}):
@@ -60,15 +62,17 @@ class GS(Thread):
                 if(p.find('div',{'class',"TWO_TO_ONE"})!=None):
                     prod_tag='2+1'
                 if(p.find('div',{'class',"GIFT"})!=None):
-                    prod_tag='DUM'
+                    prod_tag='증정'
                     dum=p.find('div',{'class':'dum_box'})
                     prod_dum=dum_name=str(dum.find('p',{'class':'name'})).split('>')[2].split('<')[0]
                     dum_price=str(dum.find('p',{'class':'price'})).split('>')[2].split('<')[0]
                     dum_img=str(dum.find('img')['src'])                    
                     dumlist.append([dum_name,dum_price,dum_img])                            
-                sqlFile.write("insert into prodList values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+"','GS'); \n")
-                
-                
+                sqlFile.write("insert into prodList values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+" \n")
+        
+        for x in dumlist:
+            if x not in dumlist:
+                dumlist.append(x)
         for data in dumlist:
-            sqlFile.write("insert into GS_DUM values('"+data[0]+"','"+data[1]+"','"+data[2]+"');\n")            
+            sqlFile.write(data[0]+"','"+data[1]+"','"+data[2]+"\n")            
         sqlFile.close()
