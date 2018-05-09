@@ -67,12 +67,12 @@ class GS(Thread):
                     prod_dum=dum_name=str(dum.find('p',{'class':'name'})).split('>')[2].split('<')[0]
                     dum_price=str(dum.find('p',{'class':'price'})).split('>')[2].split('<')[0]
                     dum_img=str(dum.find('img')['src'])                    
-                    dumlist.append([dum_name,dum_price,dum_img])                            
-                sqlFile.write("insert into prodList values('"+prod_name+"','"+prod_price+"','"+prod_tag+"','"+prod_img+"','"+prod_dum+" \n")
+                    dumlist.append([prod_name,dum_name,dum_price,dum_img])                            
+                sqlFile.write(prod_name+" , "+prod_price+" , "+prod_tag+" , "+prod_img+"\n")
+        sqlFile.write("==========================================================================================================\n")
         
-        for x in dumlist:
-            if x not in dumlist:
-                dumlist.append(x)
+        
+        
         for data in dumlist:
-            sqlFile.write(data[0]+"','"+data[1]+"','"+data[2]+"\n")            
+            sqlFile.write(data[0]+"','"+data[1]+"','"+data[2]+" , "+data[3]+"\n")            
         sqlFile.close()

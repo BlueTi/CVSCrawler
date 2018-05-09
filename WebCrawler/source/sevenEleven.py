@@ -24,6 +24,7 @@ class Seven(Thread):
         sqlfile=codecs.open('sevenEleven.txt', 'w', 'utf-8')
         driver.get(url)
         sleep(2)
+        dumlist=[]  
         for n in range(1,5):
             no=str(n)
             driver.execute_script("fncTab('"+no+"');")
@@ -44,7 +45,7 @@ class Seven(Thread):
                     check=tem
                        
             prodList=soup.find("ul",{"id":"listUl"}).find_all("li")     
-            dumlist=[]   
+             
             for data in prodList:
                 if(data.find('div',{'class':'infowrap'})!=None):                
                     prodName=data.find('div',{'class':'name'}).get_text()
@@ -61,9 +62,8 @@ class Seven(Thread):
                         dumlist.append([prodName,prodDum,dumPrice,dumImg])
                         prodTag="증정"
                     else: prodDum=''
-                    
                     sqlfile.write(prodName+", "+prodPrice+" , "+prodTag+" , "+prodImg+"\n")
-
-            for data in dumlist:                   
-                sqlfile.write("'"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"\n")
+        sqlfile.write("===================================================\n")
+        for data in dumlist:                   
+            sqlfile.write("'"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"\n")
                     
