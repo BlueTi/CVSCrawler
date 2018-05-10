@@ -43,9 +43,9 @@ class GS(Thread):
     
     
     
-        sqlFile=codecs.open("GS.txt","w","utf-8")        
+        sqlFile=codecs.open("GS.sql","w","utf-8")        
         dumlist=list()
-        
+        dumprod_l=list()
         for d in prodList:
             for p in d.find_all("div",{'class':'prod_box'}):
                 prod_name=str(p.find('p',{'class':'tit'})).split('>')[1].split('<')[0]
@@ -67,12 +67,14 @@ class GS(Thread):
                     prod_dum=dum_name=str(dum.find('p',{'class':'name'})).split('>')[2].split('<')[0]
                     dum_price=str(dum.find('p',{'class':'price'})).split('>')[2].split('<')[0]
                     dum_img=str(dum.find('img')['src'])                    
-                    dumlist.append([prod_name,dum_name,dum_price,dum_img])                            
-                sqlFile.write(prod_name+" , "+prod_price+" , "+prod_tag+" , "+prod_img+"\n")
-        sqlFile.write("==========================================================================================================\n")
+                    dumlist.append([prod_name,dum_name]) 
+                    dumprod_l.append([dum_name,dum_price,dum_img])                           
+                sqlFile.write("insert into SevenEleven values(0,'"+prod_name+"' , "+prod_price+" , '"+prod_tag+"' , '"+prod_img+"'); \n")
         
-        
-        
+        d_set = set(map(tuple,dumprod_l))
+        dumprod_l=[list(x) for x in d_set]
+        for data in dumprod_l:
+            sqlFile.write("insert into SevenEleven_Dumprod values(0, '"+data[0]+"' , "+data[1]+" , '"+data[2]+"'); \n")     
         for data in dumlist:
-            sqlFile.write(data[0]+"','"+data[1]+"','"+data[2]+" , "+data[3]+"\n")            
+            sqlFile.write("insert into SevenEleven_Dum values(select prodId from SevenEleven where  name='"+data[0]+"'),'"+data[1]+"');\n")            
         sqlFile.close()
