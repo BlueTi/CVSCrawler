@@ -69,12 +69,12 @@ class GS(Thread):
                     dum_img=str(dum.find('img')['src'])                    
                     dumlist.append([prod_name,dum_name]) 
                     dumprod_l.append([dum_name,dum_price,dum_img])                           
-                sqlFile.write("insert into SevenEleven values(0,'"+prod_name+"' , "+prod_price+" , '"+prod_tag+"' , '"+prod_img+"'); \n")
+                sqlFile.write("insert into GS values(0,'"+prod_name+"' , "+prod_price+" , '"+prod_tag+"' , '"+prod_img+"'); \n")
         
         d_set = set(map(tuple,dumprod_l))
         dumprod_l=[list(x) for x in d_set]
         for data in dumprod_l:
-            sqlFile.write("insert into SevenEleven_Dumprod values(0, '"+data[0]+"' , "+data[1]+" , '"+data[2]+"'); \n")     
+            sqlFile.write("insert into GS_Dumprod values(0, '"+data[0]+"' , "+data[1]+" ,'"+data[2]+"'); \n")     
         for data in dumlist:
-            sqlFile.write("insert into SevenEleven_Dum values(select prodId from SevenEleven where  name='"+data[0]+"'),'"+data[1]+"');\n")            
+            sqlFile.write("insert into GS_Dum values((select prodId from SevenEleven where name='"+data[0]+"'),'"+data[1]+"');\n")            
         sqlFile.close()

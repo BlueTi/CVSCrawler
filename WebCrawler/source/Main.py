@@ -10,5 +10,5 @@ import CU, GS,sevenEleven
 if __name__ == '__main__':  
     #thread1 = Thread(CU.CU().start())
     thread2 = Thread(GS.GS().start())    
-    #thread3 = Thread(sevenEleven.Seven().start())
+    thread3 = Thread(sevenEleven.Seven().start())
     
