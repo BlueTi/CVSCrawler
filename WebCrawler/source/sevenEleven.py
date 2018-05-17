@@ -21,11 +21,11 @@ class Seven(Thread):
     def create7DB(self):
         url="https://www.7-eleven.co.kr/product/presentList.asp"
         driver = webdriver.Chrome('./driver/chromedriver.exe')        
-        sqlfile=codecs.open('sevenEleven.sql', 'w', 'utf-8')
+        
         driver.get(url)
         sleep(2)
-        dumlist=list()
-        dumprod_l=list() 
+        prod_list=list()
+        dum_list=list()
         for n in range(1,5):
             no=str(n)
             driver.execute_script("fncTab('"+no+"');")
@@ -50,27 +50,28 @@ class Seven(Thread):
             for data in prodList:
                 if(data.find('div',{'class':'infowrap'})!=None):                
                     prod_name=data.find('div',{'class':'name'}).get_text()
-                    prod_price=data.find('div',{'class':'price'}).get_text().replace('\n','')
+                    prod_price=data.find('div',{'class':'price'}).get_text().replace('\n','').replace(',','')
                     prod_img="https://7-eleven.co.kr"+str(data.find('img')['src'])
                     prod_tag=str(data.find('ul',{'class':'tag_list_01'}).get_text().replace('\n',''))
                     prodDum=data.find_all("div",{"class":"infowrap"})
                     if(len(prodDum)>1):           
                         dum_name=prodDum[1].find('div',{'class':'name'}).get_text()
                         if(prodDum==''): continue
-                        dum_price=str(prodDum[1].find('span').get_text())
+                        dum_price=str(prodDum[1].find('span').get_text()).replace(',','')
                         dum_img="https://7-eleven.co.kr"+str(data.find_all('img')[1]['src'])
-                        dumlist.append([prod_name,dum_name]) 
-                        dumprod_l.append([dum_name,dum_price,dum_img])
-                        prodTag="증정"
+                        dum_list.append([prod_name,dum_name]) 
+                        prod_list.append([dum_name,dum_price,"증정품",dum_img])
+                        prod_tag="증정"
                     else: prodDum=''
-                    sqlfile.write("insert into SevenEleven values(0,'"+prod_name+"' , "+prod_price+" , '"+prod_tag+"' , '"+prod_img+"'); \n")
+                    prod_list.append([prod_name,prod_price,prod_tag,prod_img])
                     
-                    
-        d_set = set(map(tuple,dumprod_l))
-        dumprod_l=[list(x) for x in d_set]
-        for data in dumprod_l:
-            sqlfile.write("insert into SevenEleven_Dumprod values(0, '"+data[0]+"' , "+data[1]+" ,'"+data[2]+"'); \n")     
-        for data in dumlist:
-            sqlfile.write("insert into SevenEleven_Dum values((select prodId from SevenEleven where name='"+data[0]+"'),'"+data[1]+"');\n")            
-        sqlfile.close()
+        p_set=set(map(tuple,prod_list))
+        prod_list=[list(x)for x in p_set]
+        sqlFile=codecs.open("GS.sql","w","utf-8")   
+        for data in prod_list:
+            sqlFile.write("insert into prod values(0,'"+data[0]+"' , "+data[1]+" , (select tag_numb from tag where tag='"+data[2]+") , '"+data[3]+"' , 'GS'); \n")
+           
+        for data in dum_list:
+            sqlFile.write("insert into prod_dum values((select prodId from prod where name='"+data[0]+"'),(select prodId from prod where name='"+data[1]+"'));\n")            
+        sqlFile.close()
                     
