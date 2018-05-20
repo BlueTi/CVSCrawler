@@ -71,7 +71,7 @@ class GS(Thread):
         prod_list=[list(x)for x in p_set]
         sqlFile=codecs.open("GS.sql","w","utf-8")   
         for data in prod_list:
-            sqlFile.write("insert into prod values(0,'"+data[0]+"' , "+data[1]+" , (select tag_numb from tag where tag='"+data[2]+") , '"+data[3]+"' , 'GS'); \n")
+            sqlFile.write("insert into prod values(select concat(date_format(now(), '%Y%m%s'),cast(cast(rand()*10000 as unsigned) as char) ),'"+data[0]+"' , "+data[1]+" , (select tag_numb from tag where tag='"+data[2]+"') , '"+data[3]+"' , 'GS'); \n")
            
         for data in dumlist:
             sqlFile.write("insert into prod_dum values((select prodId from prod where name='"+data[0]+"'),(select prodId from prod where name='"+data[1]+"'));\n")            
