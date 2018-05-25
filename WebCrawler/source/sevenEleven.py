@@ -60,18 +60,21 @@ class Seven(Thread):
                         dum_price=str(prodDum[1].find('span').get_text()).replace(',','')
                         dum_img="https://7-eleven.co.kr"+str(data.find_all('img')[1]['src'])
                         dum_list.append([prod_name,dum_name]) 
-                        prod_list.append([dum_name,dum_price,"증정품",dum_img])
+                        prod_list.append([dum_name, dum_img  , dum_price, "증정품"])
                         prod_tag="증정"
                     else: prodDum=''
-                    prod_list.append([prod_name,prod_price,prod_tag,prod_img])
+                    prod_list.append([prod_name,prod_img,prod_price,prod_tag])
                     
         p_set=set(map(tuple,prod_list))
         prod_list=[list(x)for x in p_set]
-        sqlFile=codecs.open("sevenEleven.sql","w","utf-8")   
+        sqlFile=codecs.open("sevenEleven.sql","w","utf-8")
+        numb=0   
         for data in prod_list:
-            sqlFile.write("insert into prod values(select concat(date_format(now(), '%Y%m%s'), cast( cast( rand()*10000 as unsigned) as char) ),'"+data[0]+"' , "+data[1]+" , (select tag_numb from tag where tag='"+data[2]+"') , '"+data[3]+"' , 'GS'); \n")
+            numb+=1
+            sqlFile.write("insert into prod values((select concat(date_format(now(), '%Y%m'),"+str(numb)+")),'"+data[0]+"' , '"+data[1]+"' , "+data[2]+", '"+data[3]+"' ,'seven'); \n")
+            
            
         for data in dum_list:
-            sqlFile.write("insert into prod_dum values((select prodId from prod where name='"+data[0]+"'),(select prodId from prod where name='"+data[1]+"'));\n")            
+            sqlFile.write("insert into prod_dum values((select prodId from prod where name='"+data[0]+"' and tag='증정'),(select prodId from prod where name='"+data[1]+"' and tag='증정품'));\n")            
         sqlFile.close()
                     
