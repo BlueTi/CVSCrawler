@@ -71,7 +71,7 @@ class Seven(Thread):
         numb=0   
         for data in prod_list:
             numb+=1
-            sqlFile.write("insert into prod values((select concat(date_format(now(), '%Y%m'),"+str(numb)+")),'"+data[0]+"' , '"+data[1]+"' , "+data[2]+", '"+data[3]+"' ,'seven'); \n")
+            sqlFile.write("insert into prod values((select concat(date_format(now(), '%Y%m'),7"+str(numb)+")),'"+data[0]+"' , '"+data[1]+"' , "+data[2]+", '"+data[3]+"' ,'seven'); \n")
             
            
         for data in dum_list:
