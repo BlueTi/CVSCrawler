@@ -6,7 +6,7 @@ Created on 2016. 10. 28.
 from builtins import list
 import codecs
 from threading import Thread
-from time import sleep
+from time import sleep, strftime
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -64,15 +64,17 @@ class GS(Thread):
                     dum_price=str(dum.find('p',{'class':'price'})).split('>')[2].split('<')[0].replace(',','')
                     dum_img=str(dum.find('img')['src'])                    
                     dumlist.append([prod_name,dum_name]) 
-                    prod_list.append([dum_name,dum_price,"증정품",dum_img])
-                prod_list.append([prod_name,prod_price,prod_tag,prod_img])
+                    prod_list.append([dum_name,dum_img,dum_price,"증정품"])
+                prod_list.append([prod_name,prod_img,prod_price,prod_tag])
                 
         p_set=set(map(tuple,prod_list))
         prod_list=[list(x)for x in p_set]
         sqlFile=codecs.open("GS.sql","w","utf-8")   
+        code=0
         for data in prod_list:
-            sqlFile.write("insert into prod values(select concat(date_format(now(), '%Y%m%s'),cast(cast(rand()*10000 as unsigned) as char) ),'"+data[0]+"' , "+data[1]+" , (select tag_numb from tag where tag='"+data[2]+"') , '"+data[3]+"' , 'GS'); \n")
+            code+=1
+            sqlFile.write("insert into prod_list values(3"+strftime("%y%m")+str(code).zfill(3)+",'"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"');\n")
            
         for data in dumlist:
-            sqlFile.write("insert into prod_dum values((select prodId from prod where name='"+data[0]+"'),(select prodId from prod where name='"+data[1]+"'));\n")            
+            sqlFile.write("insert into prod_dum values((select prod_id from prod_list where name='"+data[0]+"' and tag='증정' and prod_id like '3%'),(select prod_id from prod_list where name='"+data[1]+"' and tag='증정품' and prod_id like '3%'));\n")            
         sqlFile.close()

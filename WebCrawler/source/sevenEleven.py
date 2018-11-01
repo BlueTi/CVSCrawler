@@ -5,7 +5,7 @@ Created on 2016. 11. 28.
 '''
 import codecs
 from threading import Thread
-from time import sleep
+from time import sleep, strftime
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -68,13 +68,14 @@ class Seven(Thread):
         p_set=set(map(tuple,prod_list))
         prod_list=[list(x)for x in p_set]
         sqlFile=codecs.open("sevenEleven.sql","w","utf-8")
-        numb=0   
+        numb=0
+        code=0   
         for data in prod_list:
             numb+=1
-            sqlFile.write("insert into prod values((select concat(date_format(now(), '%Y%m'),7"+str(numb)+")),'"+data[0]+"' , '"+data[1]+"' , "+data[2]+", '"+data[3]+"' ,'seven'); \n")
-            
+            code+=1
+            sqlFile.write("insert into prod_list values(2"+strftime("%y%m")+str(code).zfill(3)+",'"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"');\n")
            
         for data in dum_list:
-            sqlFile.write("insert into prod_dum values((select prodId from prod where name='"+data[0]+"' and tag='증정'),(select prodId from prod where name='"+data[1]+"' and tag='증정품'));\n")            
+            sqlFile.write("insert into prod_dum values((select prod_id from prod_list where name='"+data[0]+"' and tag='증정' and prod_id like '2%'),(select prod_id from prod_list where name='"+data[1]+"' and tag='증정품' and prod_id like '2%'));\n")            
         sqlFile.close()
                     
